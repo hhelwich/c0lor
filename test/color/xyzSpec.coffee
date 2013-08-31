@@ -37,6 +37,20 @@ describe 'XYZ Colorspace module', ->
 
       expect(XYZ.xyY()).toApprox xyY, 0
 
+    it 'can map XYZ to xyY in place', ->
+
+      x = _.xyY 0.1,  0.1, 0.1
+      y = XYZ.xyY(x)
+      expect(y).toApprox xyY, 0
+      expect(y).toBe(x)
+
     it 'xyY maps correctly to XYZ', ->
 
       expect(xyY.XYZ()).toApprox XYZ, 0.0000000000000001
+
+    it 'can map xyY to XYZ in place', ->
+
+      x = _.XYZ 0.4,  0.4, 0.4
+      y = xyY.XYZ(x)
+      expect(y).toApprox XYZ, 0.0000000000000001
+      expect(y).toBe(x)
