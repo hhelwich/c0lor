@@ -13,12 +13,7 @@ describe 'XYZ Colorspace module', ->
 
     # checks if actual object contains all expected properties and that the number values are similar
     @addMatchers
-      toApprox: (expected, maxEps) ->
-        for key, numb of expected
-          expect(@actual[key]).toBeDefined()
-          if (Math.abs @actual[key] - numb) > maxEps
-            return false
-        true
+      toApprox: (require './matcher').toApprox
 
 
   describe 'XYZ constructors', ->
