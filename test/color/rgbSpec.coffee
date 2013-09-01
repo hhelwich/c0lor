@@ -4,10 +4,10 @@ white = require 'color/whites'
 
 describe 'Rgb Colorspace module', ->
 
-  XYZ2 = XYZ3 = null
+  XYZ2 = XYZ3 = XYZ2_s = XYZ3_s = null
   rgb1 = rgb2 = rgb3 = rgb4 = null
   RGB1 = RGB2 = RGB3 = RGB4 = null
-  rgbCs1 = null
+  rgbCs1 = rgbCs2 = null
 
   beforeEach ->
 
@@ -25,6 +25,11 @@ describe 'Rgb Colorspace module', ->
     # Adobe-98 / http://www.brucelindbloom.com
     XYZ2 = XYZ 0.95047, 1       , 1.08883
     XYZ3 = XYZ 0.1441 , 0.111282, 0.039618
+
+    rgbCs2 = _.space.sRGB
+    # sRGB / http://www.brucelindbloom.com
+    XYZ2_s = XYZ 0.95047 , 1       , 1.08883
+    XYZ3_s = XYZ 0.120444, 0.100287, 0.044327
 
     @addMatchers
       toApprox: (require './matcher').toApprox
@@ -93,8 +98,14 @@ describe 'Rgb Colorspace module', ->
       expect(rgbCs1.toXYZ(rgb2)).toApprox XYZ2, 0.0001
       expect(rgbCs1.toXYZ(rgb3)).toApprox XYZ3, 0.0001
 
+      expect(rgbCs2.toXYZ(rgb2)).toApprox XYZ2_s, 0.0001
+      expect(rgbCs2.toXYZ(rgb3)).toApprox XYZ3_s, 0.0001
+
       expect(rgbCs1.toXYZ(rgbCs1.fromXYZ XYZ2)).toApprox XYZ2, 0.000000000000001
       expect(rgbCs1.toXYZ(rgbCs1.fromXYZ XYZ3)).toApprox XYZ3, 0.0000000000000001
+
+      expect(rgbCs2.toXYZ(rgbCs2.fromXYZ XYZ2_s)).toApprox XYZ2_s, 0.000000000000001
+      expect(rgbCs2.toXYZ(rgbCs2.fromXYZ XYZ3_s)).toApprox XYZ3_s, 0.0000000000000001
 
 
   describe 'fromXYZ()', ->
@@ -104,6 +115,12 @@ describe 'Rgb Colorspace module', ->
       expect(rgbCs1.fromXYZ(XYZ2)).toApprox rgb2, 0.0001
       expect(rgbCs1.fromXYZ(XYZ3)).toApprox rgb3, 0.0001
 
+      expect(rgbCs2.fromXYZ(XYZ2_s)).toApprox rgb2, 0.0001
+      expect(rgbCs2.fromXYZ(XYZ3_s)).toApprox rgb3, 0.0001
+
       expect(rgbCs1.fromXYZ(rgbCs1.toXYZ(rgb2))).toApprox rgb2, 0.000000000000001
       expect(rgbCs1.fromXYZ(rgbCs1.toXYZ(rgb3))).toApprox rgb3, 0.0000000000000001
+
+      expect(rgbCs2.fromXYZ(rgbCs2.toXYZ(rgb2))).toApprox rgb2, 0.000000000000001
+      expect(rgbCs2.fromXYZ(rgbCs2.toXYZ(rgb3))).toApprox rgb3
 

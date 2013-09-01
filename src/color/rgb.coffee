@@ -13,7 +13,7 @@ gammaSRgb = (x) ->
     return x / 12.92;
   pow((x + 0.055) / 1.055, 2.4)
 
-gammaSRgbInverse = (x) ->
+gammaSRgbInv = (x) ->
   if (x <= 0.0031308)
     return x * 12.92
   1.055 * pow(x, 1 / 2.4) - 0.055
@@ -71,8 +71,13 @@ class RGB
 
 
 class RgbCS
-  constructor: (@red, @green, @blue, @white, @g) ->
-    @gInv = 1 / g
+  constructor: (@red, @green, @blue, @white, gamma, gammaInv) ->
+    if typeof gamma == 'function'
+      @gamma = gamma
+      @gammaInv = gammaInv
+    else
+      @g = gamma
+      @gInv = 1 / gamma
     # assume: white.Y = 1
     @fromXYZ = (XYZ, T) ->
       @init()
@@ -128,8 +133,8 @@ class RgbCS
     T
 
 # public api
-module.exports = (red, green, blue, white, g) ->
-  new RgbCS(red, green, blue, white, g)
+module.exports = (red, green, blue, white, gamma, gammaInv) ->
+  new RgbCS(red, green, blue, white, gamma, gammaInv)
 
 module.exports.rgb = (r, g, b) ->
   new Rgb(r, g, b)
@@ -139,11 +144,86 @@ module.exports.RGB = (R, G, B) ->
 
 module.exports.space =
   'Adobe-98': new RgbCS(
-    xyY(0.6400, 0.3300)
-    xyY(0.2100, 0.7100)
-    xyY(0.1500, 0.0600)
+    xyY 0.6400, 0.3300
+    xyY 0.2100, 0.7100
+    xyY 0.1500, 0.0600
     white.D65
     2.2
   )
-
-
+  'Adobe-RGB': new RgbCS(
+    xyY 0.6250, 0.3400
+    xyY 0.2800, 0.5950
+    xyY 0.1550, 0.0700
+    white.D65
+    1.8
+  )
+  'CIE-RGB': new RgbCS(
+    xyY 0.7350, 0.2650
+    xyY 0.2740, 0.7170
+    xyY 0.1670, 0.0090
+    white.E
+    1
+  )
+  ColorMatch: new RgbCS(
+    xyY 0.6300, 0.3400
+    xyY 0.2950, 0.6050
+    xyY 0.1500, 0.0750
+    white.D50
+    1.8
+  )
+  'EBU-Monitor': new RgbCS(
+    xyY 0.6314, 0.3391
+    xyY 0.2809, 0.5971
+    xyY 0.1487, 0.0645
+    white.D50
+    1.9
+  )
+  'ECI-RGB': new RgbCS(
+    xyY 0.6700, 0.3300
+    xyY 0.2100, 0.7100
+    xyY 0.1400, 0.0800
+    white.D50
+    1.8
+  )
+  HDTV: new RgbCS(
+    xyY 0.6400, 0.3300
+    xyY 0.2900, 0.6000
+    xyY 0.1500, 0.0600
+    white.D65
+    2.2
+  )
+  'Kodak-DC': new RgbCS(
+    xyY 0.6492, 0.3314
+    xyY 0.3219, 0.5997
+    xyY 0.1548, 0.0646
+    white.D50
+    2.22
+  )
+  'NTSC-53': new RgbCS(
+    xyY 0.6700, 0.3300
+    xyY 0.2100, 0.7100
+    xyY 0.1400, 0.0800
+    white.C
+    2.2
+  )
+  'PAL-SECAM': new RgbCS(
+    xyY 0.6400, 0.3300
+    xyY 0.2900, 0.6000
+    xyY 0.1500, 0.0600
+    white.D65
+    2.2
+  )
+  WideGamut: new RgbCS(
+    xyY 0.7347, 0.2653
+    xyY 0.1152, 0.8264
+    xyY 0.1566, 0.0177
+    white.D50
+    2.2
+  )
+  sRGB: new RgbCS(
+    xyY 0.6400, 0.3300
+    xyY 0.3000, 0.6000
+    xyY 0.1500, 0.0600
+    white.D65
+    gammaSRgb, gammaSRgbInv
+  )
