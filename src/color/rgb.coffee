@@ -71,7 +71,7 @@ class RGB
 
 
 class RgbCS
-  constructor: (@white, @red, @green, @blue, @g) ->
+  constructor: (@red, @green, @blue, @white, @g) ->
     @gInv = 1 / g
     # assume: white.Y = 1
     @fromXYZ = (XYZ, T) ->
@@ -83,7 +83,7 @@ class RgbCS
       @toXYZ Rgb, T
 
   init: ->
-    if not @baseXYZ?
+    if not @base?
       # create xyz base (luminance is unknown => need to multiply each column by a scalar)
       bxyz = M [
             @red.x         ,     @green.x           ,     @blue.x
@@ -103,6 +103,7 @@ class RgbCS
 
       delete @toXYZ
       delete @fromXYZ
+      return
 
   gamma: (x) ->
     pow(x, @g)
@@ -127,8 +128,8 @@ class RgbCS
     T
 
 # public api
-module.exports = (white) ->
-  new RgbCS(white)
+module.exports = (red, green, blue, white, g) ->
+  new RgbCS(red, green, blue, white, g)
 
 module.exports.rgb = (r, g, b) ->
   new Rgb(r, g, b)
@@ -138,10 +139,10 @@ module.exports.RGB = (R, G, B) ->
 
 module.exports.space =
   'Adobe-98': new RgbCS(
-    white.D65
     xyY(0.6400, 0.3300)
     xyY(0.2100, 0.7100)
     xyY(0.1500, 0.0600)
+    white.D65
     2.2
   )
 
