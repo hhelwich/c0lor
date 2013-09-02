@@ -1,5 +1,7 @@
 _ = require 'color/rgb'
-XYZ = (require 'color/xyz').XYZ
+xyz = require 'color/xyz'
+XYZ = xyz.XYZ
+xyY = xyz.xyY
 white = require 'color/whites'
 
 describe 'Rgb Colorspace module', ->
@@ -123,4 +125,18 @@ describe 'Rgb Colorspace module', ->
 
       expect(rgbCs2.fromXYZ(rgbCs2.toXYZ(rgb2))).toApprox rgb2, 0.000000000000001
       expect(rgbCs2.fromXYZ(rgbCs2.toXYZ(rgb3))).toApprox rgb3
+
+
+  describe 'color space constructor', ->
+
+    it 'create a new (identity) color space', ->
+
+      cs = _ (xyY 1, 0), (xyY 0, 1), (xyY 0, 0), (xyY 1/3, 1/3), 1
+      (expect cs.toXYZ _.rgb 0, 0, 0).toEqual XYZ 0, 0, 0
+      (expect cs.toXYZ _.rgb 1, 0, 0).toEqual XYZ 1, 0, 0
+      (expect cs.toXYZ _.rgb 0, 1, 0).toEqual XYZ 0, 1, 0
+      (expect cs.toXYZ _.rgb 0, 0, 1).toApprox (XYZ 0, 0, 1), 0.000000000000001
+      (expect cs.toXYZ _.rgb 1, 1, 1).toApprox (XYZ 1, 1, 1), 0.000000000000001
+      (expect cs.toXYZ _.rgb 0.1, 0.2, 0.5).toApprox (XYZ 0.1, 0.2, 0.5), 0.000000000000001
+      (expect cs.fromXYZ XYZ 0.1, 0.2, 0.5).toApprox (_.rgb 0.1, 0.2, 0.5), 0.000000000000001
 
