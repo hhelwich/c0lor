@@ -97,14 +97,14 @@ class RgbCS
       ]
       # calculate LU decomposition of xyz base
       bxyzLU = lu bxyz
-      # calculate white point in XYZ from chromaticity (luminance should be 1)
-      w = @white.XYZ()
+      # calculate white point in XYZ from chromaticity (luminance is 1 by definition)
+      w = (xyz.xyY @white.x, @white.y, 1).XYZ()
       w = M [ w.X, w.Y, w.Z ], 1
       # get the needed scales or the columns of bxyz (sum of the columns of the base must be the white point)
       bxyzLU.solve w, w # calculate in place
       # scale bxyz to get the wanted XYZ base (sum of columns is white point)
       @base = bxyz.mult(M.diag w)
-      @baseLU = lu @base
+      @baseInv = (lu @base).getInverse()
 
       delete @toXYZ
       delete @fromXYZ
@@ -118,7 +118,7 @@ class RgbCS
 
   fromXYZ: (XYZ, T = new Rgb) ->
     c = M [ XYZ.X, XYZ.Y, XYZ.Z ], 1
-    @baseLU.solve c, c
+    c = @baseInv.mult c
     T.r = @gammaInv(c.get 0, 0)
     T.g = @gammaInv(c.get 1, 0)
     T.b = @gammaInv(c.get 2, 0)
