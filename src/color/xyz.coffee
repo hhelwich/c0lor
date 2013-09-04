@@ -9,6 +9,9 @@ class XYZ
     T.Y = @Y
     T
 
+  isDefined: ->
+    @X? and @Y? and @Z?
+
 
 class xyY
   constructor: (@x, @y, @Y) ->
@@ -19,6 +22,9 @@ class xyY
     T.Y = @Y
     T.Z = (1 - @x - @y) * @Y / @y
     T
+
+  isDefined: ->
+    @x? and @y? and @Y?
 
 
 # public api

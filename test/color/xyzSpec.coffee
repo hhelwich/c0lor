@@ -54,3 +54,21 @@ describe 'XYZ Colorspace module', ->
       y = xyY.XYZ(x)
       expect(y).toApprox XYZ, 0.0000000000000001
       expect(y).toBe(x)
+
+
+  describe 'XYZ.isDefined()', ->
+
+    it 'is true if all components are defined', ->
+
+      expect(_.XYZ().isDefined()).toBe false
+      expect(_.XYZ(1).isDefined()).toBe false
+      expect(_.XYZ(0.1, 0.2, 0.3).isDefined()).toBe true
+
+
+  describe 'xyY.isDefined()', ->
+
+    it 'is true if all components are defined', ->
+
+      expect(_.xyY().isDefined()).toBe false
+      expect(_.xyY(0.1).isDefined()).toBe false
+      expect(_.xyY(0.1, 0.2, 0.3).isDefined()).toBe true
