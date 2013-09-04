@@ -1,6 +1,6 @@
 xyY = (require './xyz').xyY
 
-xy = (x, y) -> xyY(x, y, 1)
+xy = (x, y) -> xyY(x, y, 1).XYZ()
 
 module.exports =
   A:   xy 0.44757, 0.40745

@@ -97,9 +97,7 @@ class RgbCS
       ]
       # calculate LU decomposition of xyz base
       bxyzLU = lu bxyz
-      # calculate white point in XYZ from chromaticity (luminance is 1 by definition)
-      w = (xyz.xyY @white.x, @white.y, 1).XYZ()
-      w = M [ w.X, w.Y, w.Z ], 1
+      w = M [ @white.X, @white.Y, @white.Z ], 1
       # get the needed scales or the columns of bxyz (sum of the columns of the base must be the white point)
       bxyzLU.solve w, w # calculate in place
       # scale bxyz to get the wanted XYZ base (sum of columns is white point)
@@ -134,7 +132,7 @@ class RgbCS
 
 # public api
 module.exports = (red, green, blue, white, gamma, gammaInv) ->
-  new RgbCS(red, green, blue, white, gamma, gammaInv)
+  new RgbCS(red, green, blue, xyY(white.x, white.y, 1).XYZ(), gamma, gammaInv)
 
 module.exports.rgb = (r, g, b) ->
   new Rgb(r, g, b)

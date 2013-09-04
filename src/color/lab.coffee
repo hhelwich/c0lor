@@ -22,22 +22,20 @@ class Lab
   constructor: (@L, @a, @b) ->
 
 class LabCS
-  constructor: (white) ->
-    @white = white
-    @whiteXYZ = (xyz.xyY @white.x, @white.y, 1).XYZ()
+  constructor: (@white) ->
 
   fromXYZ: (XYZ, T = new Lab) ->
-    l = f(XYZ.Y / @whiteXYZ.Y)
+    l = f(XYZ.Y / @white.Y)
     T.L = 116 * l - 16
-    T.a = 500 * (f(XYZ.X / @whiteXYZ.X) - l)
-    T.b = 200 * (l - f(XYZ.Z / @whiteXYZ.Z))
+    T.a = 500 * (f(XYZ.X / @white.X) - l)
+    T.b = 200 * (l - f(XYZ.Z / @white.Z))
     T
 
   toXYZ: (Lab, T = xyz.XYZ()) ->
     fy = (Lab.L + 16) / 116
-    T.X = fInv(fy + Lab.a / 500) * @whiteXYZ.X
-    T.Y = fInv(fy) * @whiteXYZ.Y
-    T.Z = fInv(fy - Lab.b / 200) * @whiteXYZ.Z
+    T.X = fInv(fy + Lab.a / 500) * @white.X
+    T.Y = fInv(fy) * @white.Y
+    T.Z = fInv(fy - Lab.b / 200) * @white.Z
     T
 
 # public api
