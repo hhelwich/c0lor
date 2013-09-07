@@ -124,7 +124,7 @@ describe 'Rgb Colorspace module', ->
       expect(rgbCs1.fromXYZ(rgbCs1.toXYZ(rgb3))).toApprox rgb3, 0.0000000000000001
 
       expect(rgbCs2.fromXYZ(rgbCs2.toXYZ(rgb2))).toApprox rgb2, 0.000000000000001
-      expect(rgbCs2.fromXYZ(rgbCs2.toXYZ(rgb3))).toApprox rgb3
+      expect(rgbCs2.fromXYZ(rgbCs2.toXYZ(rgb3))).toApprox rgb3, 0.000000000000001
 
 
   describe 'color space constructor', ->
