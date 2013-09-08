@@ -101,8 +101,9 @@ class RgbCS
       # get the needed scales or the columns of bxyz (sum of the columns of the base must be the white point)
       bxyzLU.solve w, w # calculate in place
       # scale bxyz to get the wanted XYZ base (sum of columns is white point)
-      @base = bxyz.mult(M.diag w)
-      @baseInv = (lu @base).getInverse()
+      bxyz = bxyz.mult(M.diag w)
+      @base = bxyz.array
+      @baseInv = (lu bxyz).getInverse().array
 
       delete @toXYZ
       delete @fromXYZ
@@ -115,19 +116,20 @@ class RgbCS
     pow(x, @gInv)
 
   fromXYZ: (XYZ, T = new Rgb) ->
-    c = M [ XYZ.X, XYZ.Y, XYZ.Z ], 1
-    c = @baseInv.mult c
-    T.r = @gammaInv(c.get 0, 0)
-    T.g = @gammaInv(c.get 1, 0)
-    T.b = @gammaInv(c.get 2, 0)
+    a = @baseInv
+    T.r = @gammaInv(a[0] * XYZ.X + a[1] * XYZ.Y + a[2] * XYZ.Z)
+    T.g = @gammaInv(a[3] * XYZ.X + a[4] * XYZ.Y + a[5] * XYZ.Z)
+    T.b = @gammaInv(a[6] * XYZ.X + a[7] * XYZ.Y + a[8] * XYZ.Z)
     T
 
   toXYZ: (Rgb, T = xyz.XYZ()) ->
-    c = M [ @gamma(Rgb.r), @gamma(Rgb.g), @gamma(Rgb.b) ], 1
-    c = @base.mult c
-    T.X = c.get 0, 0
-    T.Y = c.get 1, 0
-    T.Z = c.get 2, 0
+    a = @base
+    gr = @gamma Rgb.r
+    gg = @gamma Rgb.g
+    gb = @gamma Rgb.b
+    T.X = a[0] * gr + a[1] * gg + a[2] * gb
+    T.Y = a[3] * gr + a[4] * gg + a[5] * gb
+    T.Z = a[6] * gr + a[7] * gg + a[8] * gb
     T
 
 # public api
