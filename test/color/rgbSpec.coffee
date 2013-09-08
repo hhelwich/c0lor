@@ -2,7 +2,8 @@ _ = require 'color/rgb'
 xyz = require 'color/xyz'
 XYZ = xyz.XYZ
 xyY = xyz.xyY
-white = require 'color/whites'
+whites = require 'color/whites'
+lab = require 'color/lab'
 
 describe 'Rgb Colorspace module', ->
 
@@ -140,3 +141,32 @@ describe 'Rgb Colorspace module', ->
       (expect cs.toXYZ _.rgb 0.1, 0.2, 0.5).toApprox (XYZ 0.1, 0.2, 0.5), 0.000000000000001
       (expect cs.fromXYZ XYZ 0.1, 0.2, 0.5).toApprox (_.rgb 0.1, 0.2, 0.5), 0.000000000000001
 
+
+  describe 'Predefined color spaces', ->
+
+    it 'have the expected range in Lab colorspace', ->
+
+      min = lab.Lab 0, 0, 0
+      max = lab.Lab 100, 0, 0
+
+      # rgb test colors
+      rgbTest = [
+        _.rgb 1, 0, 0
+        _.rgb 0, 1, 0
+        _.rgb 0, 0, 1
+      ]
+
+      for rgbSpaceName, rgbSpace of _.space
+        for rgbCol in rgbTest
+          xyzCol = rgbSpace.toXYZ rgbCol
+          for whiteName, white of whites
+            labColor = (lab white).fromXYZ xyzCol
+            min.L = Math.min labColor.L, min.L
+            min.a = Math.min labColor.a, min.a
+            min.b = Math.min labColor.b, min.b
+            max.L = Math.max labColor.L, max.L
+            max.a = Math.max labColor.a, max.a
+            max.b = Math.max labColor.b, max.b
+
+      (expect min).toEqual lab.Lab 0, -223.4241602806217, -237.05355418094157
+      (expect max).toEqual lab.Lab 100, 191.62605068015958, 146.1172562433079
