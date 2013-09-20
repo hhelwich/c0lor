@@ -8,15 +8,22 @@ pow = Math.pow
 
 f = (w) ->
   if w > e3
-    pow(w, 1/3)
+    pow w, 1/3
   else
     foo * w + N
 
 fInv = (w) ->
   if w > e
-    pow(w, 3)
+    pow w, 3
   else
     (w - N) / foo
+
+# derivative of f
+fDeriv = (w) ->
+  if w > e3
+    1 / (3 * (pow w, 2/3))
+  else
+    foo
 
 class Lab
   constructor: (@L, @a, @b) ->
@@ -37,6 +44,9 @@ class LabCS
     T.Y = fInv(fy) * @white.Y
     T.Z = fInv(fy - Lab.b / 200) * @white.Z
     T
+
+  fromXYZderivL: (Y) ->
+    116 * fDeriv(Y / @white.Y) / @white.Y
 
 # public api
 module.exports = (white) ->

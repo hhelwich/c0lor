@@ -41,3 +41,16 @@ describe 'Lab Colorspace module', ->
       expect(labCs.toXYZ labCs.fromXYZ XYZ1).toApprox XYZ1, 0.0000000000000001
       expect(labCs.toXYZ Lab2).toApprox XYZ2, 0.0000001
       expect(labCs.toXYZ labCs.fromXYZ XYZ2).toApprox XYZ2, 0.00000000000000001
+
+
+  describe 'fromXYZderivL()', ->
+
+    it 'derivative seems to linear approximate the function at some random point', ->
+
+      f = (Y) -> (labCs.fromXYZ xyz.XYZ null, Y, null).L
+      f_ = (Y) -> labCs.fromXYZderivL Y
+      Y = 0.3 # examine around some point Y
+      t1 = (x) -> (f Y) + (f_ Y) * (x - Y) # taylor's theorem
+      (expect t1 Y).toBe f Y
+      (expect t1 Y + 0.001).toApprox (f Y + 0.001), 0.0001
+      (expect t1 Y - 0.001).toApprox (f Y - 0.001), 0.0001
