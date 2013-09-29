@@ -2,9 +2,13 @@ xyz = require './xyz'
 
 N = 4 / 29 # = 16 / 116
 e3 = 216 / 24389 # = e^3
-foo = 841 / 108  # = (1 / 116) * (24389 / 27)
+foo = 841 / 108  # = (1 / 116) * (24389 / 27) = 1/3 * (29/6)^2
 e = 6 / 29 # = e3^(1/3)
 pow = Math.pow
+sqrt = Math.sqrt
+atan2 = Math.atan2
+cos = Math.cos
+sin = Math.sin
 
 f = (w) ->
   if w > e3
@@ -25,8 +29,26 @@ fDeriv = (w) ->
   else
     foo
 
+
 class Lab
   constructor: (@L, @a, @b) ->
+
+  LCh: (T = new LCh) ->
+    T.L = @L # lightness
+    T.C = sqrt @a * @a + @b * @b # chroma
+    T.h = atan2 @b, @a # hue
+    T
+
+
+class LCh
+  constructor: (@L, @C, @h) ->
+
+  Lab: (T = new Lab) ->
+    T.L = @L
+    T.a = @C * cos @h
+    T.b = @C * sin @h
+    T
+
 
 class LabCS
   constructor: (@white) ->
@@ -54,3 +76,6 @@ module.exports = (white) ->
 
 module.exports.Lab = (L, a, b) ->
   new Lab(L, a, b)
+
+module.exports.LCh = (L, C, h) ->
+  new LCh(L, C, h)
