@@ -34,6 +34,9 @@ to2Hex = (b) ->
 from2Hex = (str) ->
   parseInt(str, 16)
 
+validRgbEl = (x) ->
+  (isFinite x) and 0 <= x <= 1
+
 
 class Rgb
   constructor: (@r, @g, @b) ->
@@ -46,6 +49,9 @@ class Rgb
 
   isDefined: ->
     @r? and @g? and @b?
+
+  isValid: ->
+    @isDefined() and (validRgbEl @r) and (validRgbEl @g) and (validRgbEl @b)
 
 
 class RGB

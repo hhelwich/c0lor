@@ -94,6 +94,24 @@ describe 'Rgb Colorspace module', ->
       expect(rgb3.isDefined()).toBe true
       expect(rgb4.isDefined()).toBe true
 
+  describe 'rgb.isValid()', ->
+
+    it 'is true if all components are defined and between 0..1', ->
+
+      # ok
+      (expect (_.rgb 0, 0, 0).isValid()).toBe true
+      (expect (_.rgb -0, -0, -0).isValid()).toBe true
+      (expect (_.rgb 1, 1, 1).isValid()).toBe true
+      (expect (_.rgb 0.1, 0.2, 0.3).isValid()).toBe true
+      # not ok
+      (expect (_.rgb 0, -0.001, 0).isValid()).toBe false
+      (expect (_.rgb 0, 0, 1.0001).isValid()).toBe false
+      (expect (_.rgb undefined, 0, 1).isValid()).toBe false
+      (expect (_.rgb 0, null, 0).isValid()).toBe false
+      (expect (_.rgb 0, Number.POSITIVE_INFINITY, 0).isValid()).toBe false
+      (expect (_.rgb 0, Number.NaN, 0).isValid()).toBe false
+      (expect (_.rgb 0, Number.NEGATIVE_INFINITY, 0).isValid()).toBe false
+
   describe 'toXYZ()', ->
 
     it 'maps to XYZ correctly', ->
