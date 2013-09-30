@@ -47,6 +47,9 @@ class Rgb
     T.B = toByte @b
     T
 
+  set: (@r, @g, @b) ->
+    @
+
   isDefined: ->
     @r? and @g? and @b?
 

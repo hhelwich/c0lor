@@ -112,6 +112,16 @@ describe 'Rgb Colorspace module', ->
       (expect (_.rgb 0, Number.NaN, 0).isValid()).toBe false
       (expect (_.rgb 0, Number.NEGATIVE_INFINITY, 0).isValid()).toBe false
 
+  describe 'rgb.set()', ->
+
+    it 'sets the given values', ->
+
+      rgb = _.rgb 0.1, 0.2, 0.3
+      rgb2 = rgb.set 0.4, 0.5, 0.6
+      (expect rgb2).toBe rgb # return obj for chaining
+      (expect rgb).toEqual _.rgb 0.4, 0.5, 0.6 # values changed
+
+
   describe 'toXYZ()', ->
 
     it 'maps to XYZ correctly', ->
