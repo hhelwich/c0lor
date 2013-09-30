@@ -3,7 +3,9 @@ warn = (require '../util/log').warn
 info = (require '../util/log').info
 pow = Math.pow
 rgbM = require './rgb'
+xyzM = require './xyz'
 
+###
 solveCubic = (a0, a, b, c) ->    # see: http://de.wikipedia.org/wiki/Cardanische_Formeln
   # normalize
   a /= a0
@@ -80,10 +82,12 @@ gammaInv = (rgb, rgbCs) ->
   rgb.g = rgbCs.gammaInv rgb.g
   rgb.b = rgbCs.gammaInv rgb.b
   rgb
+###
 
 class GamutMapping
 
   constructor: (@rgbCs, @labCs) ->
+    ###
     rgbCs.init() # make sure rgb base is initialized
     # store rgb inverse base normalised with lab white point
     a = rgbCs.baseInv
@@ -92,10 +96,81 @@ class GamutMapping
       a[3] * @labCs.white.X, a[4] * @labCs.white.Y, a[5] * @labCs.white.Z
       a[6] * @labCs.white.X, a[7] * @labCs.white.Y, a[8] * @labCs.white.Z
     ]
-
+  ###
 
 
   LChMaxC: (LCh, rgb = rgbM.rgb()) ->
+    # naive binary search implementation
+    # TODO: manage correct direct calculation
+    LCh.C = 0
+    step = 110
+    validC = null
+    for n in [0..50] by 1
+      lab = LCh.Lab lab
+      xyz = @labCs.toXYZ lab, xyz
+      @rgbCs.fromXYZ xyz, rgb
+      if rgb.isValid()
+        validC = LCh.C
+        LCh.C += step
+      else
+        LCh.C -= step
+      step /= 2
+    LCh.C = validC
+    if validC? # solution found
+      @rgbCs.fromXYZ (@labCs.toXYZ (LCh.Lab lab), xyz), rgb
+    else
+      null
+
+
+
+###
+
+  LChMaxCExp: (LCh, rgb = rgbM.rgb()) ->
+
+
+    xyz = xyzM.XYZ() # temporary variable
+
+    # valid (r, 0, 0) with given luminance possible?
+    r = (pow 16 + LCh.L, 3) / (@labCs.white.Y * 1560896 * @rgbCs.base[3]) # 1560896 = 116^3
+    if 0 <= r <= 1 # valid rgb element ?
+      r = @rgbCs.gammaInv r # linear rgb -> nonlinear rgb
+      _rgb = rgbM.rgb r, 0, 0
+      # map to LCh to get hue
+      @rgbCs.toXYZ _rgb, xyz
+      lab = @labCs.fromXYZ xyz, lab
+      lch = lab.LCh lch
+
+
+    # valid (0, g, 0) with given luminance possible?
+    g = (pow 16 + LCh.L, 3) / (@labCs.white.Y * 1560896 * @rgbCs.base[4]) # 1560896 = 116^3
+    if 0 <= g <= 1 # valid rgb element ?
+      g = @rgbCs.gammaInv g # linear rgb -> nonlinear rgb
+      _rgb = rgbM.rgb 0, g, 0
+      # map to LCh to get hue
+      @rgbCs.toXYZ _rgb, xyz
+      lab = @labCs.fromXYZ xyz, lab
+      lch = lab.LCh lch
+
+
+
+    # valid (0, 0, b) with given luminance possible?
+    b = (pow 16 + LCh.L, 3) / (@labCs.white.Y * 1560896 * @rgbCs.base[5]) # 1560896 = 116^3
+    if 0 <= b <= 1 # valid rgb element ?
+      b = @rgbCs.gammaInv b # linear rgb -> nonlinear rgb
+      _rgb = rgbM.rgb 0, 0, b
+      # map to LCh to get hue
+      @rgbCs.toXYZ _rgb, xyz
+      lab = @labCs.fromXYZ xyz, lab
+      lch = lab.LCh lch
+    else # valid (r, 0, 1) with given luminance possible?
+      r = ((pow (16 + LCh.L) / 116, 3) * @labCs.white.Y - @rgbCs.base[5]) / @rgbCs.base[3]
+
+    #lchTest = (@labCs.fromXYZ @rgbCs.toXYZ rgbTest).LCh()
+
+    #lchTest = (@labCs.fromXYZ @rgbCs.toXYZ rgbTest.set 0, 1, 0).LCh()
+
+    #lchTest = (@labCs.fromXYZ @rgbCs.toXYZ rgbTest.set 0, 0, 1).LCh()
+
     # L and h fixed. maximum C is wanted so that the LCh color is a valid in current rgb color space
     # calculate a,b for chroma 1. Now we need to find the factor for a and b (the chroma)
     a = Math.cos LCh.h
@@ -177,7 +252,7 @@ class GamutMapping
 
 
 
-
+###
 
 
 
