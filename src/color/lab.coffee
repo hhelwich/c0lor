@@ -39,6 +39,9 @@ class Lab
     T.h = atan2 @b, @a # hue
     T
 
+  toString: ->
+    "L=#{@L}, a=#{@a}, b=#{@b}"
+
 
 class LCh
   constructor: (@L, @C, @h) ->
@@ -48,6 +51,9 @@ class LCh
     T.a = @C * cos @h
     T.b = @C * sin @h
     T
+
+  toString: ->
+    "L=#{@L}, C=#{@C}, h=#{@h}"
 
 
 class LabCS

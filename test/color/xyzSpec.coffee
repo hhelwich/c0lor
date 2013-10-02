@@ -72,3 +72,17 @@ describe 'XYZ Colorspace module', ->
       expect(_.xyY().isDefined()).toBe false
       expect(_.xyY(0.1).isDefined()).toBe false
       expect(_.xyY(0.1, 0.2, 0.3).isDefined()).toBe true
+
+
+  describe 'XYZ.toString()', ->
+
+    it 'creates informative output', ->
+
+      (expect "#{XYZ}").toBe "X=0.1, Y=0.2, Z=0.3"
+
+
+  describe 'xyY.toString()', ->
+
+    it 'creates informative output', ->
+
+      (expect "#{_.xyY 0.2, 0.3, 0.4}").toBe "x=0.2, y=0.3, Y=0.4"

@@ -12,6 +12,9 @@ class XYZ
   isDefined: ->
     @X? and @Y? and @Z?
 
+  toString: ->
+    "X=#{@X}, Y=#{@Y}, Z=#{@Z}"
+
 
 class xyY
   constructor: (@x, @y, @Y) ->
@@ -25,6 +28,9 @@ class xyY
 
   isDefined: ->
     @x? and @y? and @Y?
+
+  toString: ->
+    "x=#{@x}, y=#{@y}, Y=#{@Y}"
 
 
 # public api

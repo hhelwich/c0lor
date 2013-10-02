@@ -72,3 +72,17 @@ describe 'Lab Colorspace module', ->
 
       (expect LCh1.Lab()).toApprox Lab1, 0.0001
       (expect LCh2.Lab()).toApprox Lab2, 0.0001
+
+
+  describe 'Lab.toString()', ->
+
+    it 'creates informative output', ->
+
+      (expect "#{Lab1}").toBe "L=51.8372, a=-57.4865, b=-25.7804"
+
+
+  describe 'LCh.toString()', ->
+
+    it 'creates informative output', ->
+
+      (expect "#{_.LCh 51.8372, 63.0026, -2.7}").toBe "L=51.8372, C=63.0026, h=-2.7"

@@ -56,6 +56,9 @@ class Rgb
   isValid: ->
     @isDefined() and (validRgbEl @r) and (validRgbEl @g) and (validRgbEl @b)
 
+  toString: ->
+    "r=#{@r}, g=#{@g}, b=#{@b}"
+
 
 class RGB
   constructor: (@R, @G, @B) ->
@@ -77,6 +80,9 @@ class RGB
 
   isDefined: ->
     @R? and @G? and @B?
+
+  toString: ->
+    "R=#{@R}, G=#{@G}, B=#{@B}"
 
 
 class RgbCS

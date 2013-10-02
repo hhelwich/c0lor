@@ -76,6 +76,21 @@ describe 'Rgb Colorspace module', ->
       expect(RGB1.hex('FFFFFF')).toEqual RGB2
       expect(_.RGB().hex('804D33')).toEqual RGB3
 
+
+  describe 'rgb.toString()', ->
+
+    it 'creates informative output', ->
+
+      (expect "#{rgb3}").toBe "r=0.5, g=0.3, b=0.2"
+
+
+  describe 'RGB.toString()', ->
+
+    it 'creates informative output', ->
+
+      (expect "#{RGB3}").toBe "R=128, G=77, B=51"
+
+
   describe 'RGB.isDefined()', ->
 
     it 'is true if all components are defined', ->
