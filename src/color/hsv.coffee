@@ -35,15 +35,13 @@ rgbM.hsv = (h, s, v) ->
 
 
 rgbM.extendRgb (rgb) ->
-  rgb::hsv = (T = new Hsv()) ->
 
+  rgb::hsv = (T = new Hsv()) ->
     max = Math.max @r, @g, @b
     min = Math.min @r, @g, @b
     T.v = max
     d = max - min
-    T.s = if max != 0 then d / max
-    else
-      0
+    T.s = if max != 0 then d / max else 0
     if T.s == 0
       T.h = 0
     else
@@ -53,7 +51,7 @@ rgbM.extendRgb (rgb) ->
           T.h += (@g - @b) / d
         when @g
           T.h = 2 + (@b - @r) / d
-        else
-          T.h = 4 + (@r - @g) / d # blue
+        else # blue
+          T.h = 4 + (@r - @g) / d
       T.h /= 6
     T
