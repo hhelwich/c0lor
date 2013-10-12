@@ -171,3 +171,6 @@ module.exports.space =
   'sRGB':        new RgbCS (xyY 0.6400, 0.3300), (xyY 0.3000, 0.6000), (xyY 0.1500, 0.0600), white.D65, gammaSRgb,
                                                                                                         gammaSRgbInv
   'WideGamut':   new RgbCS (xyY 0.7347, 0.2653), (xyY 0.1152, 0.8264), (xyY 0.1566, 0.0177), white.D50, 2.2
+
+
+module.exports.extendRgb = (f) -> f Rgb
