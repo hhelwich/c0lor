@@ -36,7 +36,6 @@ describe 'Gamut Mapping module', ->
       # check some valid combinations
       for L in [10..90] by 40
         for h in [0..360] by 30
-          console.log L
           h *= Math.PI / 180
           lch1 = lab.LCh L, null, h
           rgb1 = gamut.LChMaxC lch1
