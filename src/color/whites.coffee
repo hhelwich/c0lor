@@ -1,7 +1,23 @@
-xyY = (require './xyz').xyY
+# Map of white points in *XYZ* color space.
 
-xy = (x, y) -> xyY(x, y, 1).XYZ()
+# Imports
+# -------
 
+# *xyY* color constructor.
+xyY = (require "./xyz").xyY
+
+
+# Helpers
+# -------
+
+# Create *XYZ* color with luminance *1* from chromaticity.
+xy = (x, y) -> do (xyY x, y, 1).XYZ
+
+
+# Public API
+# ----------
+
+# Export Map of white points.
 module.exports =
   A:   xy 0.44757, 0.40745
   B:   xy 0.34842, 0.35161
