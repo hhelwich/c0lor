@@ -1,13 +1,20 @@
-rgbM = require './rgb'
+# see: http://en.wikipedia.org/wiki/HSL_and_HSV
+
+# Imports / Shortcuts
+# -------------------
+
+rgbM = require "./rgb"
+createConstructor = (require "../util/obj").createConstructor
 
 floor = Math.floor
 
-# see: http://de.wikipedia.org/wiki/HSV-Farbraum
 
-class Hsv
-  constructor: (@h, @s, @v) ->
+# HSV color prototype
+# -------------------
 
-  rgb: (T = rgbM.rgb()) ->
+hsvPrototype =
+
+  rgb: (T = do rgbM.rgb) ->
     if @s == 0 # simplification
       T.set @v, @v, @v
     else
@@ -28,15 +35,14 @@ class Hsv
     "h=#{@h}, s=#{@s}, v=#{@v}"
 
 
-# extend rgb model
+# Extend RGB module
+# -----------------
 
-rgbM.hsv = (h, s, v) ->
-  new Hsv(h, s, v)
-
+rgbM.hsv = createHsv = createConstructor hsvPrototype, (@h, @s, @v) ->
 
 rgbM.extendRgb (rgb) ->
 
-  rgb::hsv = (T = new Hsv()) ->
+  rgb.hsv = (T = do createHsv) ->
     max = Math.max @r, @g, @b
     min = Math.min @r, @g, @b
     T.v = max

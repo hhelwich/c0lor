@@ -175,14 +175,14 @@ describe 'Rgb Colorspace module', ->
 
     it 'create a new (identity) color space', ->
 
-      cs = _ (xyY 1, 0), (xyY 0, 1), (xyY 0, 0), (xyY 1/3, 1/3), 1
+      cs = _ (xyY 1, 0), (xyY 0, 1), (xyY 0, 0), (XYZ 1, 1, 1), 1
       (expect cs.toXYZ _.rgb 0, 0, 0).toEqual XYZ 0, 0, 0
       (expect cs.toXYZ _.rgb 1, 0, 0).toEqual XYZ 1, 0, 0
       (expect cs.toXYZ _.rgb 0, 1, 0).toEqual XYZ 0, 1, 0
-      (expect cs.toXYZ _.rgb 0, 0, 1).toApprox (XYZ 0, 0, 1), 0.000000000000001
-      (expect cs.toXYZ _.rgb 1, 1, 1).toApprox (XYZ 1, 1, 1), 0.000000000000001
-      (expect cs.toXYZ _.rgb 0.1, 0.2, 0.5).toApprox (XYZ 0.1, 0.2, 0.5), 0.000000000000001
-      (expect cs.fromXYZ XYZ 0.1, 0.2, 0.5).toApprox (_.rgb 0.1, 0.2, 0.5), 0.000000000000001
+      (expect cs.toXYZ _.rgb 0, 0, 1).toEqual XYZ 0, 0, 1
+      (expect cs.toXYZ _.rgb 1, 1, 1).toEqual XYZ 1, 1, 1
+      (expect cs.toXYZ _.rgb 0.1, 0.2, 0.5).toEqual XYZ 0.1, 0.2, 0.5
+      (expect cs.fromXYZ XYZ 0.1, 0.2, 0.5).toEqual _.rgb 0.1, 0.2, 0.5
 
 
   describe 'Predefined color spaces', ->
