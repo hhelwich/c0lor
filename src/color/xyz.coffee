@@ -1,42 +1,55 @@
+# XYZ and xyY color space implementation.
 
-class XYZ
-  constructor: (@X, @Y, @Z) ->
+# Imports
+# -------
 
-  # Convert XYZ color to xyY color
-  xyY: (T = new xyY) ->
+createConstructor = (require "../util/obj").createConstructor
+
+# XYZ prototype
+# -------------
+
+xyzPrototype =
+
+  # Convert the color from *XYZ* to *xyY* color space. Give optional *xyY* color `T` to store the result.
+  xyY: (T = do createXyy) ->
     T.x = @X / (@X + @Y + @Z)
     T.y = @Y / (@X + @Y + @Z)
     T.Y = @Y
     T
 
+  # Returns `true` if all components of the color are not `null` and not `undefined`.
   isDefined: ->
     @X? and @Y? and @Z?
 
+  # Returns a human readable string serialization of the color.
   toString: ->
     "X=#{@X}, Y=#{@Y}, Z=#{@Z}"
 
 
-class xyY
-  constructor: (@x, @y, @Y) ->
+# xyY prototype
+# -------------
 
-  # Convert xyY color to XYZ color
-  XYZ: (T = new XYZ) ->
+xyyPrototype =
+
+# Convert color from *xyY* to *XYZ* color space. Give optional *XYZ* color `T` to store the result.
+  XYZ: (T = do createXyz) ->
     T.X = @x * @Y / @y
     T.Y = @Y
     T.Z = (1 - @x - @y) * @Y / @y
     T
 
+  # Returns `true` if all components of the color are not `null` and not `undefined`.
   isDefined: ->
     @x? and @y? and @Y?
 
+  # Returns a human readable string serialization of the color.
   toString: ->
     "x=#{@x}, y=#{@y}, Y=#{@Y}"
 
 
-# public api
-module.exports =
-  XYZ: (X, Y, Z) ->
-    new XYZ X, Y, Z
+# Public API
+# ----------
 
-  xyY: (x, y, Y) ->
-    new xyY x, y, Y
+module.exports =
+  XYZ: createXyz = createConstructor xyzPrototype, (@X, @Y, @Z) ->
+  xyY: createXyy = createConstructor xyyPrototype, (@x, @y, @Y) ->
