@@ -194,9 +194,14 @@ describe 'Rgb Colorspace module', ->
 
       # rgb test colors
       rgbTest = [
+        _.rgb 0, 0, 0
         _.rgb 1, 0, 0
         _.rgb 0, 1, 0
         _.rgb 0, 0, 1
+        _.rgb 1, 0, 1
+        _.rgb 0, 1, 1
+        _.rgb 1, 1, 0
+        _.rgb 1, 1, 1
       ]
 
       for rgbSpaceName, rgbSpace of _.space
@@ -212,4 +217,4 @@ describe 'Rgb Colorspace module', ->
             max.b = Math.max labColor.b, max.b
 
       (expect min).toEqual lab.Lab 0, -223.4241602806217, -237.05355418094157
-      (expect max).toEqual lab.Lab 100, 191.62605068015958, 146.1172562433079
+      (expect max).toEqual lab.Lab 100, 191.62605068015958, 158.7312579450673
