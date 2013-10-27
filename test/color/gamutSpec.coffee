@@ -2,7 +2,7 @@ _ = require 'color/gamut'
 lab = require 'color/lab'
 rgb = require 'color/rgb'
 xyz = require 'color/xyz'
-white = require 'color/whites'
+white = require 'color/white'
 
 describe 'Gamut Mapping module', ->
 

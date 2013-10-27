@@ -2,7 +2,7 @@ _ = require 'color/rgb'
 xyz = require 'color/xyz'
 XYZ = xyz.XYZ
 xyY = xyz.xyY
-whites = require 'color/whites'
+whites = require 'color/white'
 lab = require 'color/lab'
 
 describe 'Rgb Colorspace module', ->

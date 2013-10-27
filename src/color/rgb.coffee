@@ -2,7 +2,7 @@
 # -------------------
 
 xyz = require "./xyz"
-white = require "./whites"
+white = require "./white"
 M = require "../math/matrix"
 lu = require "../math/luDecomposition"
 createConstructor = (require "../util/obj").createConstructor

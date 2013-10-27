@@ -1,6 +1,6 @@
 _ = require 'color/lab'
 xyz = require 'color/xyz'
-white = require 'color/whites'
+white = require 'color/white'
 
 describe 'Lab Colorspace module', ->
 
