@@ -100,6 +100,27 @@ rgbBytePrototype =
 # RGB space constructor
 # ---------------------
 
+lazyInitRgbBase = ->
+  # create xyz base (luminance is unknown => need to multiply each column by a scalar)
+  bxyz = M [
+        @red.x         ,     @green.x           ,     @blue.x
+                 @red.y,                @green.y,               @blue.y
+    1 - @red.x - @red.y, 1 - @green.x - @green.y, 1 - @blue.x - @blue.y
+  ]
+  # calculate LU decomposition of xyz base
+  bxyzLU = lu bxyz
+  w = M [ @white.X, @white.Y, @white.Z ], 1
+  # get the needed scales or the columns of bxyz (sum of the columns of the base must be the white point)
+  bxyzLU.solve w, w # calculate in place
+  # scale bxyz to get the wanted XYZ base (sum of columns is white point)
+  bxyz = bxyz.mult M.diag w
+  @base = bxyz.array
+  @baseInv = (lu bxyz).getInverse().array
+
+  delete @toXYZ
+  delete @fromXYZ
+  return
+
 rgbSpaceConstructor = (@red, @green, @blue, @white, gamma, gammaInv) ->
   if typeof gamma == "function"
     @gamma = gamma
@@ -107,40 +128,21 @@ rgbSpaceConstructor = (@red, @green, @blue, @white, gamma, gammaInv) ->
   else
     @g = gamma
     @gInv = 1 / gamma
-  # assume: white.Y = 1
-  @fromXYZ = (XYZ, T) ->
-    do @init
-    @fromXYZ XYZ, T
-  @toXYZ = (Rgb, T) ->
-    do @init
-    @toXYZ Rgb, T
+  # Lazy definition of following two methods.
+  @fromXYZ = ->
+    lazyInitRgbBase.call @
+    @fromXYZ.apply @, arguments
+  @toXYZ = ->
+    lazyInitRgbBase.call @
+    @toXYZ.apply @, arguments
+
+
 
 # RGB space prototype
 # -------------------
 
 rgbSpacePrototype =
 
-  init: ->
-    if not @base?
-      # create xyz base (luminance is unknown => need to multiply each column by a scalar)
-      bxyz = M [
-            @red.x         ,     @green.x           ,     @blue.x
-                     @red.y,                @green.y,               @blue.y
-        1 - @red.x - @red.y, 1 - @green.x - @green.y, 1 - @blue.x - @blue.y
-      ]
-      # calculate LU decomposition of xyz base
-      bxyzLU = lu bxyz
-      w = M [ @white.X, @white.Y, @white.Z ], 1
-      # get the needed scales or the columns of bxyz (sum of the columns of the base must be the white point)
-      bxyzLU.solve w, w # calculate in place
-      # scale bxyz to get the wanted XYZ base (sum of columns is white point)
-      bxyz = bxyz.mult M.diag w
-      @base = bxyz.array
-      @baseInv = (lu bxyz).getInverse().array
-
-      delete @toXYZ
-      delete @fromXYZ
-      return
 
   gamma: (x) ->
     pow(x, @g)
