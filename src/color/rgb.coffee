@@ -70,10 +70,10 @@ rgbPrototype =
     "r=#{@r}, g=#{@g}, b=#{@b}"
 
 
-# RGB 3 byte prototype
+# RGB 24 bit prototype
 # --------------------
 
-rgbBytePrototype =
+rgb24Prototype =
 
   rgb: (T = do createRgb) ->
     T.r = fromByte @R
@@ -173,23 +173,22 @@ rgbSpacePrototype =
 # Public api
 # ----------
 
-module.exports = createRgbSpace = createConstructor rgbSpacePrototype, rgbSpaceConstructor,
+module.exports =
   rgb: createRgb = createConstructor rgbPrototype, (@r, @g, @b) ->
-  RGB: createRgbByte = createConstructor rgbBytePrototype, (@R, @G, @B) ->
+  RGB: createRgbByte = createConstructor rgb24Prototype, (@R, @G, @B) ->
   extendRgb: (f) -> f rgbPrototype
-
-createRgbSpace.space =
-  "Adobe-98":    createRgbSpace (xyY 0.6400, 0.3300), (xyY 0.2100, 0.7100), (xyY 0.1500, 0.0600), white.D65, 2.2
-  "Adobe-RGB":   createRgbSpace (xyY 0.6250, 0.3400), (xyY 0.2800, 0.5950), (xyY 0.1550, 0.0700), white.D65, 1.8
-  "CIE-RGB":     createRgbSpace (xyY 0.7350, 0.2650), (xyY 0.2740, 0.7170), (xyY 0.1670, 0.0090), white.E  , 1
-  "ColorMatch":  createRgbSpace (xyY 0.6300, 0.3400), (xyY 0.2950, 0.6050), (xyY 0.1500, 0.0750), white.D50, 1.8
-  "EBU-Monitor": createRgbSpace (xyY 0.6314, 0.3391), (xyY 0.2809, 0.5971), (xyY 0.1487, 0.0645), white.D50, 1.9
-  "ECI-RGB":     createRgbSpace (xyY 0.6700, 0.3300), (xyY 0.2100, 0.7100), (xyY 0.1400, 0.0800), white.D50, 1.8
-  "HDTV":        createRgbSpace (xyY 0.6400, 0.3300), (xyY 0.2900, 0.6000), (xyY 0.1500, 0.0600), white.D65, 2.2
-  "Kodak-DC":    createRgbSpace (xyY 0.6492, 0.3314), (xyY 0.3219, 0.5997), (xyY 0.1548, 0.0646), white.D50, 2.22
-  "NTSC-53":     createRgbSpace (xyY 0.6700, 0.3300), (xyY 0.2100, 0.7100), (xyY 0.1400, 0.0800), white.C  , 2.2
-  "PAL-SECAM":   createRgbSpace (xyY 0.6400, 0.3300), (xyY 0.2900, 0.6000), (xyY 0.1500, 0.0600), white.D65, 2.2
-  "sRGB":        createRgbSpace (xyY 0.6400, 0.3300), (xyY 0.3000, 0.6000), (xyY 0.1500, 0.0600), white.D65, gammaSRgb,
-                                                                                                             gammaSRgbInv
-  "WideGamut":   createRgbSpace (xyY 0.7347, 0.2653), (xyY 0.1152, 0.8264), (xyY 0.1566, 0.0177), white.D50, 2.2
-
+  createSpace: createRgbSpace = createConstructor rgbSpacePrototype, rgbSpaceConstructor
+  space:
+    "Adobe-98":    createRgbSpace (xyY 0.6400, 0.3300), (xyY 0.2100, 0.7100), (xyY 0.1500, 0.0600), white.D65, 2.2
+    "Adobe-RGB":   createRgbSpace (xyY 0.6250, 0.3400), (xyY 0.2800, 0.5950), (xyY 0.1550, 0.0700), white.D65, 1.8
+    "CIE-RGB":     createRgbSpace (xyY 0.7350, 0.2650), (xyY 0.2740, 0.7170), (xyY 0.1670, 0.0090), white.E  , 1
+    "ColorMatch":  createRgbSpace (xyY 0.6300, 0.3400), (xyY 0.2950, 0.6050), (xyY 0.1500, 0.0750), white.D50, 1.8
+    "EBU-Monitor": createRgbSpace (xyY 0.6314, 0.3391), (xyY 0.2809, 0.5971), (xyY 0.1487, 0.0645), white.D50, 1.9
+    "ECI-RGB":     createRgbSpace (xyY 0.6700, 0.3300), (xyY 0.2100, 0.7100), (xyY 0.1400, 0.0800), white.D50, 1.8
+    "HDTV":        createRgbSpace (xyY 0.6400, 0.3300), (xyY 0.2900, 0.6000), (xyY 0.1500, 0.0600), white.D65, 2.2
+    "Kodak-DC":    createRgbSpace (xyY 0.6492, 0.3314), (xyY 0.3219, 0.5997), (xyY 0.1548, 0.0646), white.D50, 2.22
+    "NTSC-53":     createRgbSpace (xyY 0.6700, 0.3300), (xyY 0.2100, 0.7100), (xyY 0.1400, 0.0800), white.C  , 2.2
+    "PAL-SECAM":   createRgbSpace (xyY 0.6400, 0.3300), (xyY 0.2900, 0.6000), (xyY 0.1500, 0.0600), white.D65, 2.2
+    "sRGB":        createRgbSpace (xyY 0.6400, 0.3300), (xyY 0.3000, 0.6000), (xyY 0.1500, 0.0600), white.D65, gammaSRgb,
+                                                                                                               gammaSRgbInv
+    "WideGamut":   createRgbSpace (xyY 0.7347, 0.2653), (xyY 0.1152, 0.8264), (xyY 0.1566, 0.0177), white.D50, 2.2

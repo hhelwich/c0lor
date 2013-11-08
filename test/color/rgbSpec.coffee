@@ -175,7 +175,7 @@ describe 'Rgb Colorspace module', ->
 
     it 'create a new (identity) color space', ->
 
-      cs = _ (xyY 1, 0), (xyY 0, 1), (xyY 0, 0), (XYZ 1, 1, 1), 1
+      cs = _.createSpace (xyY 1, 0), (xyY 0, 1), (xyY 0, 0), (XYZ 1, 1, 1), 1
       (expect cs.toXYZ _.rgb 0, 0, 0).toEqual XYZ 0, 0, 0
       (expect cs.toXYZ _.rgb 1, 0, 0).toEqual XYZ 1, 0, 0
       (expect cs.toXYZ _.rgb 0, 1, 0).toEqual XYZ 0, 1, 0
