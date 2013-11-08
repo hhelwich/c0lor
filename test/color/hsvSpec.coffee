@@ -73,3 +73,13 @@ describe 'Hsv Colorspace module', ->
       (expect rgbCyan.hsv()).toEqual hsvCyan
       (expect rgbBlue.hsv()).toEqual hsvBlue
       (expect rgbMagenta.hsv()).toEqual hsvMagenta
+
+
+  describe 'hsv.set()', ->
+
+    it 'sets the given values', ->
+
+      hsv = _.hsv 0.1, 0.2, 0.3
+      hsv2 = hsv.set 0.4, 0.5, 0.6
+      (expect hsv2).toBe hsv # return obj for chaining
+      (expect hsv).toEqual _.hsv 0.4, 0.5, 0.6 # values changed

@@ -31,6 +31,9 @@ hsvPrototype =
         when 4 then T.set  t,  p, @v
         when 5 then T.set @v,  p,  q
 
+  set: (@h, @s, @v) ->
+    @
+
   toString: ->
     "h=#{@h}, s=#{@s}, v=#{@v}"
 
