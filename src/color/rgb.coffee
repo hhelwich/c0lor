@@ -135,6 +135,7 @@ rgbSpaceConstructor = (@red, @green, @blue, @white, gamma, gammaInv) ->
   @toXYZ = ->
     lazyInitRgbBase.call @
     @toXYZ.apply @, arguments
+  return
 
 
 
@@ -174,8 +175,8 @@ rgbSpacePrototype =
 # ----------
 
 module.exports =
-  rgb: createRgb = createConstructor rgbPrototype, (@r, @g, @b) ->
-  RGB: createRgbByte = createConstructor rgb24Prototype, (@R, @G, @B) ->
+  rgb: createRgb = createConstructor rgbPrototype, (@r, @g, @b) -> return
+  RGB: createRgbByte = createConstructor rgb24Prototype, (@R, @G, @B) -> return
   extendRgb: (f) -> f rgbPrototype
   createSpace: createRgbSpace = createConstructor rgbSpacePrototype, rgbSpaceConstructor
   space:

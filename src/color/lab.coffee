@@ -98,6 +98,6 @@ labCsPrototype =
 # Public API
 # ----------
 
-module.exports = createConstructor labCsPrototype, ((@white) ->),
-  Lab: createLab = createConstructor labPrototype, (@L, @a, @b) ->
-  LCh: createLch = createConstructor lchPrototype, (@L, @C, @h) ->
+module.exports = createConstructor labCsPrototype, ((@white) -> return),
+  Lab: createLab = createConstructor labPrototype, (@L, @a, @b) -> return
+  LCh: createLch = createConstructor lchPrototype, (@L, @C, @h) -> return

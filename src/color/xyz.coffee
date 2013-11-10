@@ -51,5 +51,5 @@ xyyPrototype =
 # ----------
 
 module.exports =
-  XYZ: createXyz = createConstructor xyzPrototype, (@X, @Y, @Z) ->
-  xyY: createXyy = createConstructor xyyPrototype, (@x, @y, @Y) ->
+  XYZ: createXyz = createConstructor xyzPrototype, (@X, @Y, @Z) -> return
+  xyY: createXyy = createConstructor xyyPrototype, (@x, @y, @Y) -> return

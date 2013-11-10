@@ -41,7 +41,7 @@ hsvPrototype =
 # Extend RGB module
 # -----------------
 
-rgbM.hsv = createHsv = createConstructor hsvPrototype, (@h, @s, @v) ->
+rgbM.hsv = createHsv = createConstructor hsvPrototype, (@h, @s, @v) -> return
 
 rgbM.extendRgb (rgb) ->
 
