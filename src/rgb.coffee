@@ -3,9 +3,9 @@
 
 xyz = require "./xyz"
 white = require "./white"
-M = require "../math/matrix"
-lu = require "../math/luDecomposition"
-createConstructor = (require "../util/obj").createConstructor
+M = require "m4th/matrix"
+lu = require "m4th/lu"
+createConstructor = (require "ut1l/obj").createConstructor
 
 xyY = xyz.xyY
 

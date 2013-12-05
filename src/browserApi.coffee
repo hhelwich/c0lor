@@ -2,7 +2,7 @@ rgb = require "./rgb"
 require "./hsv"
 lab = require "./lab"
 xyz = require "./xyz"
-createConstructor = (require "../util/obj").createConstructor
+createConstructor = (require "ut1l/obj").createConstructor
 
 module.exports =
   rgb: rgb.rgb

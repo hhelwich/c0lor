@@ -2,7 +2,7 @@
 # -------------------
 
 xyz = require "./xyz"
-createConstructor = (require "../util/obj").createConstructor
+createConstructor = (require "ut1l/obj").createConstructor
 
 pow = Math.pow
 sqrt = Math.sqrt

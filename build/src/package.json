@@ -1,0 +1,12 @@
+{
+    "name": "c0lor",
+    "version": "0.0.0",
+    "description": "Color spaces",
+    "dependencies": {
+        "ut1l": "latest",
+        "m4th": "latest"
+    },
+    "repository": "https://github.com/hhelwich/c0lor.git",
+    "author": "Hendrik Helwich",
+    "license": ""
+}

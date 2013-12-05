@@ -1,6 +1,6 @@
-fail = (require '../util/log').fail
-warn = (require '../util/log').warn
-info = (require '../util/log').info
+fail = (require 'ut1l/log').fail
+warn = (require 'ut1l/log').warn
+info = (require 'ut1l/log').info
 pow = Math.pow
 rgbM = require './rgb'
 xyzM = require './xyz'

@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "scripts": {
+        "test": "./node_modules/.bin/grunt travis",
+        "blanket": {
+            "pattern": "c0lor/build/src/"
+        }
+    },
+    "dependencies": {
+        "ut1l": "latest",
+        "m4th": "latest"
+    },
+    "devDependencies": {
+        "grunt-cli": "latest",
+        "grunt-contrib-watch": "latest",
+        "grunt-contrib-clean": "latest",
+        "grunt-contrib-copy": "latest",
+        "grunt-contrib-coffee": "latest",
+        "grunt-mocha-cov": "latest",
+        "chai": "latest",
+        "mocha-term-cov-reporter": "latest",
+        "grunt-browserify": "latest",
+        "grunt-contrib-uglify": "latest"
+    },
+    "repository": "https://github.com/hhelwich/c0lor.git",
+    "author": "Hendrik Helwich",
+    "license": ""
+}
