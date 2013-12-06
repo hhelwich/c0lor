@@ -3,8 +3,7 @@
 # Imports / Shortcuts
 # -------------------
 
-rgbM = require "./rgb"
-createConstructor = (require "ut1l/obj").createConstructor
+{createConstructor} = require "ut1l/obj"
 
 floor = Math.floor
 
@@ -14,7 +13,7 @@ floor = Math.floor
 
 hsvPrototype =
 
-  rgb: (T = do rgbM.rgb) ->
+  rgb: (T = do require "./rgb") ->
     if @s == 0 # simplification
       T.set @v, @v, @v
     else
@@ -41,9 +40,9 @@ hsvPrototype =
 # Extend RGB module
 # -----------------
 
-rgbM.hsv = createHsv = createConstructor hsvPrototype, (@h, @s, @v) -> return
+hsv = createHsv = createConstructor hsvPrototype, (@h, @s, @v) -> return
 
-rgbM.extendRgb (rgb) ->
+(require "./rgb").extendRgb (rgb) ->
 
   rgb.hsv = (T = do createHsv) ->
     max = Math.max @r, @g, @b
@@ -64,3 +63,10 @@ rgbM.extendRgb (rgb) ->
           T.h = 4 + (@r - @g) / d
       T.h /= 6
     T
+
+
+
+# Public API
+# ----------
+
+module.exports = hsv

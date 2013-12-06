@@ -4,7 +4,7 @@
 # -------
 
 # *xyY* color constructor.
-xyY = (require "./xyz").xyY
+xyY = require "./xyY"
 
 
 # Helpers

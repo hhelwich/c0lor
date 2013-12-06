@@ -3,8 +3,8 @@ expect = chai.expect
 
 chai.use require "./approxAssertion"
 
-require '../src/hsv'
-_ = require '../src/rgb'
+hsv = require '../src/hsv'
+rgb = require '../src/rgb'
 
 
 describe 'Hsv Colorspace module', ->
@@ -14,27 +14,27 @@ describe 'Hsv Colorspace module', ->
 
   beforeEach ->
 
-    hsvBlack = _.hsv 0, 0, 0 # any value for h & s
-    hsvRed = _.hsv 0, 1, 1
-    hsvYellow = _.hsv 60/360, 1, 1
-    hsvBrown = _.hsv 24/360, .75, .36
-    hsvWhite = _.hsv 0, 0, 1 # any value for h
-    hsvGreen = _.hsv 120/360, 1, 1
-    hsvDarkGreen = _.hsv 120/360, 1, 0.5
-    hsvCyan = _.hsv 180/360, 1, 1
-    hsvBlue = _.hsv 240/360, 1, 1
-    hsvMagenta = _.hsv 300/360, 1, 1
+    hsvBlack = hsv 0, 0, 0 # any value for h & s
+    hsvRed = hsv 0, 1, 1
+    hsvYellow = hsv 60/360, 1, 1
+    hsvBrown = hsv 24/360, .75, .36
+    hsvWhite = hsv 0, 0, 1 # any value for h
+    hsvGreen = hsv 120/360, 1, 1
+    hsvDarkGreen = hsv 120/360, 1, 0.5
+    hsvCyan = hsv 180/360, 1, 1
+    hsvBlue = hsv 240/360, 1, 1
+    hsvMagenta = hsv 300/360, 1, 1
 
-    rgbBlack = _.rgb 0, 0, 0
-    rgbRed = _.rgb 1, 0, 0
-    rgbYellow = _.rgb 1, 1, 0
-    rgbBrown = _.rgb .36, .198, .09
-    rgbWhite = _.rgb 1, 1, 1
-    rgbGreen = _.rgb 0, 1, 0
-    rgbDarkGreen = _.rgb 0, .5, 0
-    rgbCyan = _.rgb 0, 1, 1
-    rgbBlue = _.rgb 0, 0, 1
-    rgbMagenta = _.rgb 1, 0, 1
+    rgbBlack = rgb 0, 0, 0
+    rgbRed = rgb 1, 0, 0
+    rgbYellow = rgb 1, 1, 0
+    rgbBrown = rgb .36, .198, .09
+    rgbWhite = rgb 1, 1, 1
+    rgbGreen = rgb 0, 1, 0
+    rgbDarkGreen = rgb 0, .5, 0
+    rgbCyan = rgb 0, 1, 1
+    rgbBlue = rgb 0, 0, 1
+    rgbMagenta = rgb 1, 0, 1
 
 
 
@@ -82,7 +82,7 @@ describe 'Hsv Colorspace module', ->
 
     it 'sets the given values', ->
 
-      hsv = _.hsv 0.1, 0.2, 0.3
-      hsv2 = hsv.set 0.4, 0.5, 0.6
-      (expect hsv2).to.equal hsv # return obj for chaining
-      (expect hsv).to.deep.equal _.hsv 0.4, 0.5, 0.6 # values changed
+      hsv1 = hsv 0.1, 0.2, 0.3
+      hsv2 = hsv1.set 0.4, 0.5, 0.6
+      (expect hsv2).to.equal hsv1 # return obj for chaining
+      (expect hsv1).to.deep.equal hsv 0.4, 0.5, 0.6 # values changed

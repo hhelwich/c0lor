@@ -1,9 +1,7 @@
-fail = (require 'ut1l/log').fail
-warn = (require 'ut1l/log').warn
-info = (require 'ut1l/log').info
+{info, warn, fail} = require 'ut1l/log'
 pow = Math.pow
 rgbM = require './rgb'
-xyzM = require './xyz'
+xyzM = require './XYZ'
 
 ###
 solveCubic = (a0, a, b, c) ->    # see: http://de.wikipedia.org/wiki/Cardanische_Formeln
@@ -99,7 +97,7 @@ class GamutMapping
   ###
 
 
-  LChMaxC: (LCh, rgb = rgbM.rgb()) ->
+  LChMaxC: (LCh, rgb = rgbM()) ->
     # naive binary search implementation
     # TODO: manage correct direct calculation
     LCh.C = 0
