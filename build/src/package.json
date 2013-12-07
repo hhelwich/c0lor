@@ -2,6 +2,7 @@
     "name": "c0lor",
     "version": "0.0.0",
     "description": "Color spaces",
+    "main": "index.js",
     "dependencies": {
         "ut1l": "latest",
         "m4th": "latest"
