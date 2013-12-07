@@ -53,13 +53,13 @@ describe 'Gamut Mapping module', ->
           # returned rgb is valid
           (expect rgb1.isValid()).to.equal true
           # rgb color equals set LCh color
-          lab1 = labCs.fromXYZ rgbCs.toXYZ rgb1
+          lab1 = labCs.Lab rgbCs.XYZ rgb1
           (expect lab1).to.approx lch1.Lab(), 0.0000000000001
 
           # check chroma is maximal
           lch1_ = lab1.LCh()
           lch1_.C += 0.0001
-          rgbOut = rgbCs.fromXYZ labCs.toXYZ lch1_.Lab()
+          rgbOut = rgbCs.rgb labCs.XYZ lch1_.Lab()
           (expect rgbOut.isValid()).to.equal false
 
       return

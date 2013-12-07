@@ -1,5 +1,5 @@
 
-{createConstructor} = require "ut1l/obj"
+{creator} = require "ut1l/obj"
 
 xyz = require "../XYZ"
 Lab = require "../Lab"
@@ -39,21 +39,21 @@ fDeriv = (w) ->
 labCsPrototype =
 
 # Converts color `XYZ` from *XYZ* to this *Lab* color space.
-  fromXYZ: (XYZ, T = do Lab) ->
+  Lab: (XYZ, T = do Lab) ->
     l = f XYZ.Y / @white.Y
     T.L = 116 * l - 16
     T.a = 500 * ((f XYZ.X / @white.X) - l)
     T.b = 200 * (l - (f XYZ.Z / @white.Z))
     T
 
-  toXYZ: (Lab, T = do xyz) ->
+  XYZ: (Lab, T = do xyz) ->
     fy = (Lab.L + 16) / 116
     T.X = (fInv fy + Lab.a / 500) * @white.X
     T.Y = (fInv fy) * @white.Y
     T.Z = (fInv fy - Lab.b / 200) * @white.Z
     T
 
-  fromXYZderivL: (Y) ->
+  LabderivL: (Y) ->
     116 * (fDeriv Y / @white.Y) / @white.Y
 
 
@@ -61,4 +61,4 @@ labCsPrototype =
 # Public API
 # ----------
 
-module.exports = createConstructor labCsPrototype, (@white) -> return
+module.exports = creator labCsPrototype, (@white) -> return

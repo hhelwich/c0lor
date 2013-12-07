@@ -46,34 +46,34 @@ describe 'Rgb Colorspace module', ->
 
     it 'maps to XYZ correctly', ->
 
-      expect(rgbCs1.toXYZ(rgb2)).to.approx XYZ2, 0.0001
-      expect(rgbCs1.toXYZ(rgb3)).to.approx XYZ3, 0.0001
+      expect(rgbCs1.XYZ(rgb2)).to.approx XYZ2, 0.0001
+      expect(rgbCs1.XYZ(rgb3)).to.approx XYZ3, 0.0001
 
-      expect(rgbCs2.toXYZ(rgb2)).to.approx XYZ2_s, 0.0001
-      expect(rgbCs2.toXYZ(rgb3)).to.approx XYZ3_s, 0.0001
+      expect(rgbCs2.XYZ(rgb2)).to.approx XYZ2_s, 0.0001
+      expect(rgbCs2.XYZ(rgb3)).to.approx XYZ3_s, 0.0001
 
-      expect(rgbCs1.toXYZ(rgbCs1.fromXYZ XYZ2)).to.approx XYZ2, 0.000000000000001
-      expect(rgbCs1.toXYZ(rgbCs1.fromXYZ XYZ3)).to.approx XYZ3, 0.0000000000000001
+      expect(rgbCs1.XYZ(rgbCs1.rgb XYZ2)).to.approx XYZ2, 0.000000000000001
+      expect(rgbCs1.XYZ(rgbCs1.rgb XYZ3)).to.approx XYZ3, 0.0000000000000001
 
-      expect(rgbCs2.toXYZ(rgbCs2.fromXYZ XYZ2_s)).to.approx XYZ2_s, 0.000000000000001
-      expect(rgbCs2.toXYZ(rgbCs2.fromXYZ XYZ3_s)).to.approx XYZ3_s, 0.0000000000000001
+      expect(rgbCs2.XYZ(rgbCs2.rgb XYZ2_s)).to.approx XYZ2_s, 0.000000000000001
+      expect(rgbCs2.XYZ(rgbCs2.rgb XYZ3_s)).to.approx XYZ3_s, 0.0000000000000001
 
 
   describe 'fromXYZ()', ->
 
     it 'maps to XYZ correctly', ->
 
-      expect(rgbCs1.fromXYZ(XYZ2)).to.approx rgb2, 0.0001
-      expect(rgbCs1.fromXYZ(XYZ3)).to.approx rgb3, 0.0001
+      expect(rgbCs1.rgb(XYZ2)).to.approx rgb2, 0.0001
+      expect(rgbCs1.rgb(XYZ3)).to.approx rgb3, 0.0001
 
-      expect(rgbCs2.fromXYZ(XYZ2_s)).to.approx rgb2, 0.0001
-      expect(rgbCs2.fromXYZ(XYZ3_s)).to.approx rgb3, 0.0001
+      expect(rgbCs2.rgb(XYZ2_s)).to.approx rgb2, 0.0001
+      expect(rgbCs2.rgb(XYZ3_s)).to.approx rgb3, 0.0001
 
-      expect(rgbCs1.fromXYZ(rgbCs1.toXYZ(rgb2))).to.approx rgb2, 0.000000000000001
-      expect(rgbCs1.fromXYZ(rgbCs1.toXYZ(rgb3))).to.approx rgb3, 0.0000000000000001
+      expect(rgbCs1.rgb(rgbCs1.XYZ(rgb2))).to.approx rgb2, 0.000000000000001
+      expect(rgbCs1.rgb(rgbCs1.XYZ(rgb3))).to.approx rgb3, 0.0000000000000001
 
-      expect(rgbCs2.fromXYZ(rgbCs2.toXYZ(rgb2))).to.approx rgb2, 0.000000000000001
-      expect(rgbCs2.fromXYZ(rgbCs2.toXYZ(rgb3))).to.approx rgb3, 0.000000000000001
+      expect(rgbCs2.rgb(rgbCs2.XYZ(rgb2))).to.approx rgb2, 0.000000000000001
+      expect(rgbCs2.rgb(rgbCs2.XYZ(rgb3))).to.approx rgb3, 0.000000000000001
 
 
   describe 'color space constructor', ->
@@ -81,13 +81,13 @@ describe 'Rgb Colorspace module', ->
     it 'create a new (identity) color space', ->
 
       cs = rgbS (xyY 1, 0), (xyY 0, 1), (xyY 0, 0), (XYZ 1, 1, 1), 1
-      (expect cs.toXYZ rgb 0, 0, 0).to.deep.equal XYZ 0, 0, 0
-      (expect cs.toXYZ rgb 1, 0, 0).to.deep.equal XYZ 1, 0, 0
-      (expect cs.toXYZ rgb 0, 1, 0).to.deep.equal XYZ 0, 1, 0
-      (expect cs.toXYZ rgb 0, 0, 1).to.deep.equal XYZ 0, 0, 1
-      (expect cs.toXYZ rgb 1, 1, 1).to.deep.equal XYZ 1, 1, 1
-      (expect cs.toXYZ rgb 0.1, 0.2, 0.5).to.deep.equal XYZ 0.1, 0.2, 0.5
-      (expect cs.fromXYZ XYZ 0.1, 0.2, 0.5).to.deep.equal rgb 0.1, 0.2, 0.5
+      (expect cs.XYZ rgb 0, 0, 0).to.deep.equal XYZ 0, 0, 0
+      (expect cs.XYZ rgb 1, 0, 0).to.deep.equal XYZ 1, 0, 0
+      (expect cs.XYZ rgb 0, 1, 0).to.deep.equal XYZ 0, 1, 0
+      (expect cs.XYZ rgb 0, 0, 1).to.deep.equal XYZ 0, 0, 1
+      (expect cs.XYZ rgb 1, 1, 1).to.deep.equal XYZ 1, 1, 1
+      (expect cs.XYZ rgb 0.1, 0.2, 0.5).to.deep.equal XYZ 0.1, 0.2, 0.5
+      (expect cs.rgb XYZ 0.1, 0.2, 0.5).to.deep.equal rgb 0.1, 0.2, 0.5
 
 
   describe 'Predefined color spaces', ->
@@ -111,9 +111,9 @@ describe 'Rgb Colorspace module', ->
 
       for rgbSpaceName, rgbSpace of rgbS
         for rgbCol in rgbTest
-          xyzCol = rgbSpace.toXYZ rgbCol
+          xyzCol = rgbSpace.XYZ rgbCol
           for whiteName, white of whites
-            labColor = (lab white).fromXYZ xyzCol
+            labColor = (lab white).Lab xyzCol
             min.L = Math.min labColor.L, min.L
             min.a = Math.min labColor.a, min.a
             min.b = Math.min labColor.b, min.b

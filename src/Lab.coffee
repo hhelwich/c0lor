@@ -1,7 +1,7 @@
 # Imports / Shortcuts
 # -------------------
 
-{createConstructor} = require "ut1l/obj"
+{creator} = require "ut1l/obj"
 
 sqrt = Math.sqrt
 atan2 = Math.atan2
@@ -28,4 +28,4 @@ labPrototype =
 # Public API
 # ----------
 
-module.exports = createConstructor labPrototype, (@L, @a, @b) -> return
+module.exports = creator labPrototype, (@L, @a, @b) -> return

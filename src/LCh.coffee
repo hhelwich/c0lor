@@ -1,4 +1,4 @@
-{createConstructor} = require "ut1l/obj"
+{creator} = require "ut1l/obj"
 
 cos = Math.cos
 sin = Math.sin
@@ -23,4 +23,4 @@ lchPrototype =
 # Public API
 # ----------
 
-module.exports = createConstructor lchPrototype, (@L, @C, @h) -> return
+module.exports = creator lchPrototype, (@L, @C, @h) -> return

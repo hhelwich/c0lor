@@ -1,7 +1,4 @@
-
-{createConstructor} = require "ut1l/obj"
-
-module.exports =
+module.exports = index =
   rgb: require "./rgb"
   RGB: require "./RGB"
   hsv: require "./hsv"
@@ -13,3 +10,7 @@ module.exports =
   space:
     rgb: require "./space/rgb"
     lab: require "./space/lab"
+
+# create global index if in browser
+if window?
+  window.c0lor = index

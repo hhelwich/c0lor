@@ -105,8 +105,8 @@ class GamutMapping
     validC = null
     for n in [0..50] by 1
       lab = LCh.Lab lab
-      xyz = @labCs.toXYZ lab, xyz
-      @rgbCs.fromXYZ xyz, rgb
+      xyz = @labCs.XYZ lab, xyz
+      @rgbCs.rgb xyz, rgb
       if rgb.isValid()
         validC = LCh.C
         LCh.C += step
@@ -115,7 +115,7 @@ class GamutMapping
       step /= 2
     LCh.C = validC
     if validC? # solution found
-      @rgbCs.fromXYZ (@labCs.toXYZ (LCh.Lab lab), xyz), rgb
+      @rgbCs.rgb (@labCs.XYZ (LCh.Lab lab), xyz), rgb
     else
       null
 

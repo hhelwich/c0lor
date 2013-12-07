@@ -34,28 +34,28 @@ describe 'Lab Colorspace', ->
 
     it 'maps correctly to XYZ', ->
 
-      expect(labCs.fromXYZ XYZ1).to.approx Lab1, 0.01
-      expect(labCs.fromXYZ labCs.toXYZ Lab1).to.approx Lab1, 0.00000000000001
-      expect(labCs.fromXYZ XYZ2).to.approx Lab2, 0.001
-      expect(labCs.fromXYZ labCs.toXYZ Lab2).to.approx Lab2, 0.00000000000001
+      expect(labCs.Lab XYZ1).to.approx Lab1, 0.01
+      expect(labCs.Lab labCs.XYZ Lab1).to.approx Lab1, 0.00000000000001
+      expect(labCs.Lab XYZ2).to.approx Lab2, 0.001
+      expect(labCs.Lab labCs.XYZ Lab2).to.approx Lab2, 0.00000000000001
 
 
   describe 'toXYZ() function', ->
 
     it 'maps correctly to Lab', ->
 
-      expect(labCs.toXYZ Lab1).to.approx XYZ1, 0.00001
-      expect(labCs.toXYZ labCs.fromXYZ XYZ1).to.approx XYZ1, 0.0000000000000001
-      expect(labCs.toXYZ Lab2).to.approx XYZ2, 0.0000001
-      expect(labCs.toXYZ labCs.fromXYZ XYZ2).to.approx XYZ2, 0.00000000000000001
+      expect(labCs.XYZ Lab1).to.approx XYZ1, 0.00001
+      expect(labCs.XYZ labCs.Lab XYZ1).to.approx XYZ1, 0.0000000000000001
+      expect(labCs.XYZ Lab2).to.approx XYZ2, 0.0000001
+      expect(labCs.XYZ labCs.Lab XYZ2).to.approx XYZ2, 0.00000000000000001
 
 
   describe 'fromXYZderivL()', ->
 
     it 'seems to linear approximate the function at some random point', ->
 
-      f = (Y) -> (labCs.fromXYZ xyz null, Y, null).L
-      f_ = (Y) -> labCs.fromXYZderivL Y
+      f = (Y) -> (labCs.Lab xyz null, Y, null).L
+      f_ = (Y) -> labCs.LabderivL Y
       Y = 0.3 # examine around some point Y
       t1 = (x) -> (f Y) + (f_ Y) * (x - Y) # taylor's theorem
       (expect t1 Y).to.equal f Y

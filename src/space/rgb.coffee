@@ -2,7 +2,7 @@
 # -------------------
 
 
-{createConstructor} = require "ut1l/obj"
+{creator} = require "ut1l/obj"
 
 XYZM = require "../XYZ"
 xyYM = require "../xyY"
@@ -52,8 +52,8 @@ lazyInitRgbBase = ->
   @base = bxyz.array
   @baseInv = (lu bxyz).getInverse().array
 
-  delete @toXYZ
-  delete @fromXYZ
+  delete @XYZ
+  delete @rgb
   return
 
 rgbSpaceConstructor = (@red, @green, @blue, @white, gamma, gammaInv) ->
@@ -64,12 +64,12 @@ rgbSpaceConstructor = (@red, @green, @blue, @white, gamma, gammaInv) ->
     @g = gamma
     @gInv = 1 / gamma
   # Lazy definition of following two methods.
-  @fromXYZ = ->
+  @rgb = ->
     lazyInitRgbBase.call @
-    @fromXYZ.apply @, arguments
-  @toXYZ = ->
+    @rgb.apply @, arguments
+  @XYZ = ->
     lazyInitRgbBase.call @
-    @toXYZ.apply @, arguments
+    @XYZ.apply @, arguments
   return
 
 
@@ -86,14 +86,14 @@ rgbSpacePrototype =
   gammaInv: (x) ->
     pow(x, @gInv)
 
-  fromXYZ: (XYZ, T = do require "../rgb") ->
+  rgb: (XYZ, T = do require "../rgb") ->
     a = @baseInv
     T.r = @gammaInv a[0] * XYZ.X + a[1] * XYZ.Y + a[2] * XYZ.Z
     T.g = @gammaInv a[3] * XYZ.X + a[4] * XYZ.Y + a[5] * XYZ.Z
     T.b = @gammaInv a[6] * XYZ.X + a[7] * XYZ.Y + a[8] * XYZ.Z
     T
 
-  toXYZ: (Rgb, T = XYZM()) ->
+  XYZ: (Rgb, T = XYZM()) ->
     a = @base
     gr = @gamma Rgb.r
     gg = @gamma Rgb.g
@@ -114,7 +114,7 @@ rgbSpacePrototype =
 
 
 
-createSpace = createConstructor rgbSpacePrototype, rgbSpaceConstructor
+createSpace = creator rgbSpacePrototype, rgbSpaceConstructor
 
 createSpace["Adobe-98"] = createSpace (xyY 0.6400, 0.3300), (xyY 0.2100, 0.7100), (xyY 0.1500, 0.0600), white.D65, 2.2
 createSpace["Adobe-RGB"] = createSpace (xyY 0.6250, 0.3400), (xyY 0.2800, 0.5950), (xyY 0.1550, 0.0700), white.D65, 1.8
