@@ -44,11 +44,11 @@ lazyInitRgbBase = ->
   ]
   # calculate LU decomposition of xyz base
   bxyzLU = lu bxyz
-  w = M [ @white.X, @white.Y, @white.Z ], 1
+  w = M 3, [ @white.X, @white.Y, @white.Z ]
   # get the needed scales or the columns of bxyz (sum of the columns of the base must be the white point)
   bxyzLU.solve w, w # calculate in place
   # scale bxyz to get the wanted XYZ base (sum of columns is white point)
-  bxyz = bxyz.mult M.diag w
+  bxyz = bxyz.mult M.diag w.array
   @base = bxyz.array
   @baseInv = (lu bxyz).getInverse().array
 
