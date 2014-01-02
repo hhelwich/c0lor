@@ -20,9 +20,7 @@
         "chai": "latest",
         "mocha-term-cov-reporter": "latest",
         "grunt-browserify": "latest",
-        "grunt-contrib-uglify": "latest"
-    },
-    "repository": "https://github.com/hhelwich/c0lor.git",
-    "author": "Hendrik Helwich",
-    "license": ""
+        "grunt-contrib-uglify": "latest",
+        "coffee-script": "latest"
+    }
 }
