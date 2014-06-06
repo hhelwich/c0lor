@@ -23,6 +23,11 @@ It exports the global `c0lor` object. You can create an alias variable if you li
 var C = c0lor;
 ```
 
+The following browsers are tested:
+
+[![Browser Test Status](https://saucelabs.com/browser-matrix/hhelwich-c0lor.svg)](https://saucelabs.com/u/hhelwich-c0lor)
+
+
 node.js
 -------
 
