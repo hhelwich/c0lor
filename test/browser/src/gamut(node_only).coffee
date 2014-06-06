@@ -4,6 +4,8 @@ C = require "./indexToTest"
 if C.BROWSER
   return
 
+C_gamut = require.call null, "../../src/gamut"
+
 describe "Gamut Mapping module", ->
 
   labCs = rgbCs = gamut = null
@@ -12,7 +14,7 @@ describe "Gamut Mapping module", ->
 
     labCs = C.space.lab C.white.D50
     rgbCs = C.space.rgb["Adobe-98"]
-    gamut = C.gamut rgbCs, labCs
+    gamut = C_gamut rgbCs, labCs
 
     jasmine.addMatchers require "./matcher"
 

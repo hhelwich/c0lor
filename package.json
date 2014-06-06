@@ -42,7 +42,7 @@
         "grunt-contrib-watch": "0.6.1",
         "grunt-saucelabs": "8.0.2",
         "istanbul": "0.2.10",
-        "jasmine-node": "1.14.3",
+        "jasmine-node": "2.0.0-beta4",
         "docker": "0.2.13",
         "esprima": "1.2.2"
     }
