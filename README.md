@@ -11,7 +11,7 @@ A color space conversion library to use in the browser or node.js. It currently 
 Browser
 -------
 
-To use the library in the browser, you need to include [this](https://raw.github.com/hhelwich/c0lor/master/c0lor.min.js) JavaScript file:
+To use the library in the browser, you need to include [this](https://raw.github.com/hhelwich/c0lor/master/dist/c0lor.min.js) JavaScript file:
 
 ```html
 <script src="c0lor.min.js"></script>
