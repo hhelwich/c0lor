@@ -100,7 +100,9 @@ describe "Rgb Colorspace module", ->
         C.rgb 1, 1, 1
       ]
 
-      for rgbSpaceName, rgbSpace of C.space.rgb
+      for own rgbSpaceName, rgbSpace of C.space.rgb
+        if rgbSpaceName == "prototype" # on ios 4.3 / 10.6 the prototype property gets iterable. why?
+          continue
         for rgbCol in rgbTest
           xyzCol = rgbSpace.XYZ rgbCol
           for whiteName, white of C.white
