@@ -38,7 +38,7 @@ describe "Lab Colorspace", ->
     it "maps correctly to Lab", ->
 
       expect(labCs.XYZ Lab1).toAllBeCloseTo XYZ1, 4
-      expect(labCs.XYZ labCs.Lab XYZ1).toAllBeCloseTo XYZ1, 16
+      expect(labCs.XYZ labCs.Lab XYZ1).toAllBeCloseTo XYZ1, 15
       expect(labCs.XYZ Lab2).toAllBeCloseTo XYZ2, 6
       expect(labCs.XYZ labCs.Lab XYZ2).toAllBeCloseTo XYZ2, 17
 

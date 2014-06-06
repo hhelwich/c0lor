@@ -64,7 +64,7 @@ describe "Rgb Colorspace module", ->
       (expect rgbCs1.rgb rgbCs1.XYZ rgb3).toEqual rgb3
 
       (expect rgbCs2.rgb rgbCs2.XYZ rgb2).toAllBeCloseTo rgb2, 15
-      (expect rgbCs2.rgb rgbCs2.XYZ rgb3).toEqual rgb3
+      (expect rgbCs2.rgb rgbCs2.XYZ rgb3).toAllBeCloseTo rgb3, 15
 
 
   describe "color space constructor", ->
