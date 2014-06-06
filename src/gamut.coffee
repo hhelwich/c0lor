@@ -1,7 +1,7 @@
-{info, warn, fail} = require 'ut1l/log'
+#{info, warn, fail} = require "ut1l/log"
 pow = Math.pow
-rgbM = require './rgb'
-xyzM = require './XYZ'
+rgbM = require "./rgb"
+xyzM = require "./XYZ"
 
 ###
 solveCubic = (a0, a, b, c) ->    # see: http://de.wikipedia.org/wiki/Cardanische_Formeln
@@ -46,14 +46,14 @@ solveCubic = (a0, a, b, c) ->    # see: http://de.wikipedia.org/wiki/Cardanische
 
     X -= a/3
   else
-    fail 'D = 0 is not implemented'
+    fail "D = 0 is not implemented"
 
 
 
-  #console.log 'solution x = '+X
-  #console.log 'test: x^3 + a*x^2 + b*x + c = ' + ((pow X, 3) + a*X*X + b*X + c)
+  #console.log "solution x = "+X
+  #console.log "test: x^3 + a*x^2 + b*x + c = " + ((pow X, 3) + a*X*X + b*X + c)
 
-  info 'expect to be 0: ' + (X*X*X + a*X*X + b*X + c)
+  info "expect to be 0: " + (X*X*X + a*X*X + b*X + c)
   X
 
 

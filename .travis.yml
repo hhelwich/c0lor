@@ -9,4 +9,6 @@ deploy:
   email: hendrik@helwich.de
   api_key:
     secure: jpkN8/Q3il0pZq9eOSG4CqhF+dj7hJDy+DMj8OebUasF4ycwqLGmgglLHNgi6lBKfkpVC0gTvh+wZz1e2TwZTet4p8/igRwyw4Oa2mCQ39UL+ILT8jfe8y2uEObnols4tD4WoYKAliHZ0gvfy6Mwe/2qTRD03wKdRv/XYXb/fwQ=
+  on:
+    tags: true
   skip_cleanup: true

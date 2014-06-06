@@ -3,7 +3,7 @@
 # Imports / Shortcuts
 # -------------------
 
-{creator} = require "ut1l/obj"
+O = require "ut1l/create/object"
 
 floor = Math.floor
 
@@ -40,7 +40,7 @@ hsvPrototype =
 # Extend RGB module
 # -----------------
 
-hsv = createHsv = creator hsvPrototype, (@h, @s, @v) -> return
+hsv = createHsv = O ((@h, @s, @v) ->), hsvPrototype
 
 (require "./rgb").extendRgb (rgb) ->
 

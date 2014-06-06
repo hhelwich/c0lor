@@ -2,7 +2,7 @@
 # -------------------
 
 
-{creator} = require "ut1l/obj"
+O = require "ut1l/create/object"
 
 round = Math.round
 
@@ -48,5 +48,4 @@ rgbPrototype =
 # Public api
 # ----------
 
-module.exports =  creator rgbPrototype, ((@r, @g, @b) -> return),
-  extendRgb: (f) -> f rgbPrototype
+module.exports =  O (extendRgb: (f) -> f rgbPrototype), ((@r, @g, @b) ->), rgbPrototype

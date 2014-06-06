@@ -7,6 +7,7 @@ module.exports = index =
   XYZ: require "./XYZ"
   xyY: require "./xyY"
   white: require "./white"
+  #gamut: require "./gamut"
   space:
     rgb: require "./space/rgb"
     lab: require "./space/lab"

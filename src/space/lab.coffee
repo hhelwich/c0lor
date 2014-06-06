@@ -1,5 +1,4 @@
-
-{creator} = require "ut1l/obj"
+O = require "ut1l/create/object"
 
 xyz = require "../XYZ"
 Lab = require "../Lab"
@@ -61,4 +60,4 @@ labCsPrototype =
 # Public API
 # ----------
 
-module.exports = creator labCsPrototype, (@white) -> return
+module.exports = O ((@white) ->), labCsPrototype

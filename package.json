@@ -1,26 +1,50 @@
 {
+    "name": "c0lor",
+    "version": "0.1.0",
+    "description": "Color space conversions",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/hhelwich/c0lor.git"
+    },
+    "keywords": [
+        "color",
+        "space",
+        "rgb",
+        "xyz",
+        "xyy",
+        "lab",
+        "lch",
+        "hsv",
+        "browser"
+    ],
+    "license": "MIT",
+    "author": "Hendrik Helwich",
+    "main": "index.js",
     "private": true,
+    "keywords": [],
     "scripts": {
-        "test": "./node_modules/.bin/grunt travis",
-        "blanket": {
-            "pattern": "c0lor/build/src/"
-        }
+        "test": "./node_modules/.bin/grunt travis && ./node_modules/.bin/istanbul cover ./node_modules/.bin/jasmine-node --captureExceptions build && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
     },
     "dependencies": {
-        "ut1l": "latest",
-        "m4th": "latest"
+        "ut1l": "0.2.0",
+        "m4th": "0.1.0"
     },
     "devDependencies": {
-        "grunt-cli": "latest",
-        "grunt-contrib-watch": "latest",
-        "grunt-contrib-clean": "latest",
-        "grunt-contrib-copy": "latest",
-        "grunt-contrib-coffee": "latest",
-        "grunt-mocha-cov": "latest",
-        "chai": "latest",
-        "mocha-term-cov-reporter": "latest",
-        "grunt-browserify": "latest",
-        "grunt-contrib-uglify": "latest",
-        "coffee-script": "latest"
+        "coveralls": "2.10.0",
+        "grunt": "0.4.4",
+        "grunt-banner": "0.2.2",
+        "grunt-browserify": "2.0.8",
+        "grunt-cli": "0.1.13",
+        "grunt-contrib-clean": "0.5.0",
+        "grunt-contrib-coffee": "0.10.1",
+        "grunt-contrib-connect": "0.7.1",
+        "grunt-contrib-copy": "0.5.0",
+        "grunt-contrib-uglify": "0.4.0",
+        "grunt-contrib-watch": "0.6.1",
+        "grunt-saucelabs": "5.1.2",
+        "istanbul": "0.2.7",
+        "jasmine-node": "2.0.0-beta4",
+        "docker": "0.2.10",
+        "esprima": "1.2.1"
     }
 }

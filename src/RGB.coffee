@@ -1,6 +1,6 @@
 
 
-{creator} = require "ut1l/obj"
+O = require "ut1l/create/object"
 
 
 cutByte = (b) ->
@@ -47,4 +47,4 @@ rgb24Prototype =
 # Public api
 # ----------
 
-module.exports = creator rgb24Prototype, (@R, @G, @B) -> return
+module.exports = O ((@R, @G, @B) ->), rgb24Prototype

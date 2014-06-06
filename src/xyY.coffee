@@ -3,7 +3,7 @@
 # Imports
 # -------
 
-{creator} = require "ut1l/obj"
+O = require "ut1l/create/object"
 
 # xyY prototype
 # -------------
@@ -31,4 +31,4 @@ xyyPrototype =
 # Public API
 # ----------
 
-module.exports = creator xyyPrototype, (@x, @y, @Y) -> return
+module.exports = O ((@x, @y, @Y) ->), xyyPrototype

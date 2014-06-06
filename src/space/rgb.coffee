@@ -2,16 +2,17 @@
 # -------------------
 
 
-{creator} = require "ut1l/obj"
+O = require "ut1l/create/object"
 
-XYZM = require "../XYZ"
-xyYM = require "../xyY"
-white = require "../white"
+
 M = require "m4th/matrix"
 lu = require "m4th/lu"
 
 
-xyY = xyYM
+white = require "../white"
+xyY = require "../xyY"
+
+XYZ = require "../XYZ"
 
 pow = Math.pow
 
@@ -93,7 +94,7 @@ rgbSpacePrototype =
     T.b = @gammaInv a[6] * XYZ.X + a[7] * XYZ.Y + a[8] * XYZ.Z
     T
 
-  XYZ: (Rgb, T = XYZM()) ->
+  XYZ: (Rgb, T = XYZ()) ->
     a = @base
     gr = @gamma Rgb.r
     gg = @gamma Rgb.g
@@ -114,7 +115,7 @@ rgbSpacePrototype =
 
 
 
-createSpace = creator rgbSpacePrototype, rgbSpaceConstructor
+createSpace = O rgbSpaceConstructor, rgbSpacePrototype
 
 createSpace["Adobe-98"] = createSpace (xyY 0.6400, 0.3300), (xyY 0.2100, 0.7100), (xyY 0.1500, 0.0600), white.D65, 2.2
 createSpace["Adobe-RGB"] = createSpace (xyY 0.6250, 0.3400), (xyY 0.2800, 0.5950), (xyY 0.1550, 0.0700), white.D65, 1.8
