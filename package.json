@@ -6,6 +6,10 @@
         "type": "git",
         "url": "https://github.com/hhelwich/c0lor.git"
     },
+    "license": "MIT",
+    "author": "Hendrik Helwich",
+    "main": "index.js",
+    "private": true,
     "keywords": [
         "color",
         "space",
@@ -17,11 +21,6 @@
         "hsv",
         "browser"
     ],
-    "license": "MIT",
-    "author": "Hendrik Helwich",
-    "main": "index.js",
-    "private": true,
-    "keywords": [],
     "scripts": {
         "test": "./node_modules/.bin/grunt travis && ./node_modules/.bin/istanbul cover ./node_modules/.bin/jasmine-node --captureExceptions build && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
     },
@@ -31,9 +30,9 @@
     },
     "devDependencies": {
         "coveralls": "2.10.0",
-        "grunt": "0.4.4",
-        "grunt-banner": "0.2.2",
-        "grunt-browserify": "2.0.8",
+        "grunt": "0.4.5",
+        "grunt-banner": "0.2.3",
+        "grunt-browserify": "2.1.0",
         "grunt-cli": "0.1.13",
         "grunt-contrib-clean": "0.5.0",
         "grunt-contrib-coffee": "0.10.1",
@@ -41,10 +40,10 @@
         "grunt-contrib-copy": "0.5.0",
         "grunt-contrib-uglify": "0.4.0",
         "grunt-contrib-watch": "0.6.1",
-        "grunt-saucelabs": "5.1.2",
-        "istanbul": "0.2.7",
-        "jasmine-node": "2.0.0-beta4",
-        "docker": "0.2.10",
-        "esprima": "1.2.1"
+        "grunt-saucelabs": "8.0.2",
+        "istanbul": "0.2.10",
+        "jasmine-node": "1.14.3",
+        "docker": "0.2.13",
+        "esprima": "1.2.2"
     }
 }
