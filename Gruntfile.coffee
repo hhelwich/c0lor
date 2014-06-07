@@ -4,7 +4,6 @@ testSrcDir = "test"
 distDir = "dist"
 pkg = require "./package"
 
-
 module.exports = (grunt) ->
 
   browsers = []
