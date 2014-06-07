@@ -8,7 +8,7 @@ deploy:
   provider: npm
   email: hendrik@helwich.de
   api_key:
-    secure: jpkN8/Q3il0pZq9eOSG4CqhF+dj7hJDy+DMj8OebUasF4ycwqLGmgglLHNgi6lBKfkpVC0gTvh+wZz1e2TwZTet4p8/igRwyw4Oa2mCQ39UL+ILT8jfe8y2uEObnols4tD4WoYKAliHZ0gvfy6Mwe/2qTRD03wKdRv/XYXb/fwQ=
+    secure: PUUs2ajF50L6HQk1n6UqGkCdooDyxrc3XdjdJ9+REnymGhJQ0/1f9xdjUVh1HDZ2lGh5WbGLiinUsB4YWYIqbT3AXpi+CpKYHB0xHxnaqs5EcL7WorarNSIY8gaZxvhBCbqkYTZFkzzhwBEg4mpQKfi9AMERPtWSujhWVN5vPuU=
   on:
     tags: true
   skip_cleanup: true
