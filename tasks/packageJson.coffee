@@ -7,20 +7,23 @@ fs = require "fs"
 config = require "./config"
 
 # Register task
-gulp.task "packageJson", ->
+gulp.task "packageJson", (cb) ->
 
   # Read package.json file to object
-  tmpPkg = fs.readFileSync "./package.json", encoding: "utf8"
-  tmpPkg = JSON.parse tmpPkg
+  fs.readFile "./package.json", encoding: "utf8", (err, data) ->
 
-  # Adapt package object content
-  tmpPkg.devDependencies = {}
-  delete tmpPkg.private
-  delete tmpPkg.scripts
+    pkg = JSON.parse data
 
-  # Create package directory if not existing (otherwise writeFile fails)
-  if not fs.existsSync config.dir.package
-    fs.mkdirSync config.dir.package
+    # Adapt package object content
+    pkg.devDependencies = {}
+    delete pkg.private
+    delete pkg.scripts
 
-  # Write package file for npm publish
-  fs.writeFileSync "#{config.dir.package}/package.json", JSON.stringify tmpPkg, null, 2
+    # Create package directory if not existing (otherwise writeFile fails)
+    fs.exists config.dir.package, (exists) ->
+      if not exists
+        fs.mkdirSync config.dir.package
+
+      # Write package file for npm publish
+      fs.writeFile "#{config.dir.package}/package.json", (JSON.stringify pkg, null, 2), (err) ->
+        cb err
