@@ -29,7 +29,11 @@
         "m4th": "0.1.0"
     },
     "devDependencies": {
+        "coffee-script": "1.7.1",
+        "gulp": "3.8.0",
         "coveralls": "2.10.0",
+        "docker": "0.2.13",
+        "esprima": "1.2.2",
         "grunt": "0.4.5",
         "grunt-banner": "0.2.3",
         "grunt-browserify": "2.1.0",
@@ -42,8 +46,6 @@
         "grunt-contrib-watch": "0.6.1",
         "grunt-saucelabs": "8.0.2",
         "istanbul": "0.2.10",
-        "jasmine-node": "2.0.0",
-        "docker": "0.2.13",
-        "esprima": "1.2.2"
+        "jasmine-node": "2.0.0"
     }
 }
