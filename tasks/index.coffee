@@ -2,4 +2,5 @@
   "config"
   "watch"
   "coffee"
+  "packageJson"
 ].forEach (task) -> require "./#{task}"
