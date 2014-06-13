@@ -3,4 +3,5 @@
   "watch"
   "coffee"
   "packageJson"
+  "mdExtract"
 ].forEach (task) -> require "./#{task}"

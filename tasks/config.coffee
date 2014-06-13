@@ -9,8 +9,10 @@ buildDir = "./build"
 config =
   dir:
     src: "./src"
+    test: "./test"
     build: buildDir
     package: "#{buildDir}/package"
+    testJS: "#{buildDir}/test"
 
 # Gulp task that can be used to change the config object so tasks can exchange state
 gulp.task "config", (key, value) ->

@@ -1,4 +1,15 @@
+
+# Imports
+gulp = require "gulp"
+fs = require "fs"
+mkdirp = require "mkdirp"
 esprima = require "esprima"
+
+config = require "./config"
+
+#TODO use node stream api
+#TODO make gulp plugin instead of task?
+
 
 separator = "\n// ---------------------------------------------------------------------------------------------------------------------\n"
 
@@ -46,70 +57,68 @@ getVars = (ast) ->
   extractVars ast, vars
   vars
 
-module.exports = (grunt) ->
+gulp.task "mdExtract", ->
 
-  grunt.registerMultiTask "mdExtract", ->
-
-    files = @files.slice()
+  files = ["./README.md"]
 
 
-    for file in files
+  for file in files
 
-      destDir = file.dest
+    destDir = config.dir.testJS
 
-      sfiles = file.src.filter (filepath) ->
-        # Warn on and remove invalid source files (if nonull was set).
-        fileExists = grunt.file.exists filepath
-        if not fileExists
-          grunt.log.warn "Source file '#{filepath}' not found."
-        fileExists
+
+    fs.readFile file, encoding: "utf8", (err, data) ->
 
       rexp = /```javascript([^`]*)/g
 
-      for sfile in sfiles # iterate source files
+      outJs = "module.exports = [\n"
 
-        outJs = "module.exports = [\n"
-
-        str = grunt.file.read sfile
-
-        # extract snippets array
-        snippets = while (myArray = (rexp.exec str)) != null
-          myArray[1]
+      # extract snippets array
+      snippets = while (myArray = (rexp.exec data)) != null
+        myArray[1]
 
 
-        snippets = snippets.map (snippet, i) ->
-          snippet = snippet.replace "require", "_require"
+      snippets = snippets.map (snippet, i) ->
+        snippet = snippet.replace "require", "_require"
 
-          vars = getVars esprima.parse snippet
-          allVars = Object.keys vars
+        vars = getVars esprima.parse snippet
+        allVars = Object.keys vars
 
-          undeclared = []
-          for v of vars
-            if not vars[v]
-              undeclared.push v
+        undeclared = []
+        for v of vars
+          if not vars[v]
+            undeclared.push v
 
-          out = "function(#{if allVars.length > 0 then "_" else ""}){"
+        out = "function(#{if allVars.length > 0 then "_" else ""}){"
 
-          # declare undeclared variables
-          if undeclared.length > 0
-            out += "var #{undeclared.join ","};"
-          # initialize variables
-          if allVars.length > 0
-            out += "if(_!=null){"
-            out += (allVars.map (v) ->
-              "#{v}=_.#{v};").join ""
-            out += "}"
+        # declare undeclared variables
+        if undeclared.length > 0
+          out += "var #{undeclared.join ","};"
+        # initialize variables
+        if allVars.length > 0
+          out += "if(_!=null){"
+          out += (allVars.map (v) ->
+            "#{v}=_.#{v};").join ""
+          out += "}"
 
-          out += header " Snippet #{i} "
+        out += header " Snippet #{i} "
 
-          out += snippet
+        out += snippet
 
-          out += separator
-          out += "return{#{allVars.map (v) -> "#{v}:#{v}"}};}"
+        out += separator
+        out += "return{#{allVars.map (v) -> "#{v}:#{v}"}};}"
 
-        outJs += snippets.join ","
+      outJs += snippets.join ","
 
 
-        outJs += "];\n"
+      outJs += "];\n"
 
-        grunt.file.write "#{destDir}/#{sfile}.js", outJs
+      dir = "#{config.dir.testJS}/md";
+      mkdirp dir, (err) ->
+        if err
+          console.error err
+        else
+          fs.writeFile "#{dir}/#{file}.js", outJs, (err) ->
+            if err
+              console.error err
+            #TODO no notification on success (task also needs callback param)

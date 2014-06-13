@@ -9,7 +9,11 @@ config = require "./config"
 
 # Register task
 gulp.task "coffee", ->
+
   gulp.src "#{config.dir.src}/**/*.coffee"
   .pipe (coffee bare: true).on "error", util.log
   .pipe gulp.dest config.dir.package
 
+  gulp.src "#{config.dir.test}/**/*.coffee"
+  .pipe (coffee bare: true).on "error", util.log
+  .pipe gulp.dest "#{config.dir.build}/test"
