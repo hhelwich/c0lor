@@ -1,4 +1,4 @@
-C = require "./../node_and_browser/indexToTest"
+C = require "../node_and_browser/indexToTest"
 
 
 if C.BROWSER
@@ -16,7 +16,7 @@ describe "Gamut Mapping module", ->
     rgbCs = C.space.rgb["Adobe-98"]
     gamut = C_gamut rgbCs, labCs
 
-    jasmine.addMatchers require "./../node_and_browser/matcher"
+    jasmine.addMatchers require "../node_and_browser/matcher"
 
 
   describe "LChMaxC() function", ->
