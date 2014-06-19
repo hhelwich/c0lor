@@ -1,6 +1,6 @@
 C = require "./indexToTest"
 
-snippets = require "./README.md"
+snippets = require "../md/README.md"
 
 describe "README.md", ->
 
