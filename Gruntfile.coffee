@@ -83,8 +83,8 @@ module.exports = (grunt) ->
       taskName:
         options:
           position: "top"
-          banner: "// <%= pkg.name %> v<%= pkg.version %> | (c) 2013-<%= grunt.template.today('yyyy') %> <%= pkg.author %> | <%= pkg.license %> License"
-          linebreak: true
+          banner: "// <%= pkg.name %> v<%= pkg.version %> | (c) 2013-<%= grunt.template.today('yyyy') %> <%= pkg.author %> | <%= pkg.license %> License\n'use strict';"
+          linebreak: false
         files:
           src: [ "#{distDir}/#{pkg.name}.min.js", "#{distDir}/#{pkg.name}.js" ]
 
