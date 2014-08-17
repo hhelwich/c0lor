@@ -16,6 +16,9 @@ to2Hex = (b) ->
 from2Hex = (str) ->
   parseInt str, 16
 
+isValid = (n) ->
+  0 <= n <= 255 and n % 1 == 0
+
 # RGB 24 bit prototype
 # --------------------
 
@@ -38,6 +41,9 @@ rgb24Prototype =
 
   isDefined: ->
     @R? and @G? and @B?
+
+  isValid: ->
+    @isDefined() and (isValid @R) and (isValid @G) and (isValid @B)
 
   toString: ->
     "R=#{@R}, G=#{@G}, B=#{@B}"

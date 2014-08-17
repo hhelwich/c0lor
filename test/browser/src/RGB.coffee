@@ -80,3 +80,20 @@ describe "RGB 24 bit color", ->
       (expect RGB2.isDefined()).toBe true
       (expect RGB3.isDefined()).toBe true
       (expect RGB4.isDefined()).toBe false
+
+
+  describe "RGB.isValid()", ->
+
+    it "is true if all components are defined and in the desired range", ->
+
+      (expect RGB1.isValid()).toBe false # not defined
+      (expect RGB2.isValid()).toBe true
+      (expect RGB3.isValid()).toBe true
+      (expect RGB4.isValid()).toBe false # not defined
+      # out of range
+      (expect (C.RGB -1, 0, 0).isValid()).toBe false
+      (expect (C.RGB 0, -1, 0).isValid()).toBe false
+      (expect (C.RGB 0, 0, -1).isValid()).toBe false
+      (expect (C.RGB 256, 0, 0).isValid()).toBe false
+      # rational number
+      (expect (C.RGB 0, 0.1, 0).isValid()).toBe false
