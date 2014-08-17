@@ -3,9 +3,6 @@
 O = require "ut1l/create/object"
 
 
-cutByte = (b) ->
-  if 0 <= b <= 255 then b else undefined
-
 fromByte = (b) ->
   if b == undefined then b else b / 255
 

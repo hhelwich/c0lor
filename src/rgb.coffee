@@ -10,12 +10,8 @@ round = Math.round
 # -------
 
 
-
-cutByte = (b) ->
-  if 0 <= b <= 255 then b else undefined
-
 toByte = (d) ->
-  cutByte round d * 255
+  round d * 255 if d?
 
 validRgbEl = (x) ->
   (isFinite x) and 0 <= x <= 1

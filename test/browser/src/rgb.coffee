@@ -18,7 +18,7 @@ describe "Rgb module", ->
     RGB1 = C.RGB 0, undefined, 0
     RGB2 = C.RGB 255, 255, 255
     RGB3 = C.RGB 128, 77, 51
-    RGB4 = C.RGB undefined, 255, undefined
+    RGB4 = C.RGB 357, 255, -25
 
     rgbCs1 = C.space.rgb["Adobe-98"]
     # Adobe-98 / http://www.brucelindbloom.com
