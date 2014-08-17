@@ -91,10 +91,11 @@ describe "README.md", ->
         L: 31
         C: 32.55764119219941
         h: -0.7419472680059175
-      (expect _.blue_Lab).toEqual
+      (expect _.blue_Lab).toAllBeCloseTo
         L: 30
         a: 30.256929128615827
         b: -47.1223751492422
+      , 13
 
 
   describe "snippet 5", ->
