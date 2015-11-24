@@ -8,7 +8,7 @@ pkg = require "./package"
 module.exports = (grunt) ->
 
   browsers = []
-  browsers.push browser for browser in ({browserName: "iphone", version: "#{vers}"} for vers in [4, "5.0", "5.1", "6.0", "6.1", 7])
+  browsers.push browser for browser in ({browserName: "iphone", version: "#{vers}"} for vers in ["5.1", "6.0", "6.1", 7])
   browsers.push browser for browser in ({browserName: "android", version: "#{vers}"} for vers in ["4.0"])
   browsers.push browser for browser in ({browserName: "safari", version: "#{vers}"} for vers in [5..7])
   browsers.push browser for browser in ({platform: "XP", browserName: "opera", version: "#{vers}"} for vers in [11..12])
