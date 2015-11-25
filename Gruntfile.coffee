@@ -12,8 +12,8 @@ module.exports = (grunt) ->
   browsers.push browser for browser in ({browserName: "android", version: "#{vers}"} for vers in ["4.0", "4.4", "5.0", "5.1"])
   browsers.push browser for browser in ({browserName: "safari", version: "#{vers}"} for vers in [5..9])
   browsers.push browser for browser in ({platform: "XP", browserName: "opera", version: "#{vers}"} for vers in [11..12])
-  browsers.push browser for browser in ({platform: "XP", browserName: "googlechrome", version: "#{vers}"} for vers in [26..46])
-  browsers.push browser for browser in ({platform: "linux", browserName: "firefox", version: "#{vers}"} for vers in [4..42] by 3)
+  browsers.push browser for browser in ({platform: "XP", browserName: "googlechrome", version: "#{vers}"} for vers in [26..46] by 2)
+  browsers.push browser for browser in ({platform: "linux", browserName: "firefox", version: "#{vers}"} for vers in [4..42] by 4)
   browsers.push browser for browser in ({browserName: "internet explorer", version: "#{vers}"} for vers in [6..11])
 
   grunt.initConfig
