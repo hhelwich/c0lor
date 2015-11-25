@@ -107,6 +107,7 @@ module.exports = (grunt) ->
           browsers: browsers
           testname: "browser black box tests"
           tags: ["master"]
+          statusCheckAttempts: 450 # Each test has statusCheckAttempts * 2 seconds to complete (900s = 15 min)
 
     mdExtract:
       foo:
