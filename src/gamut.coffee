@@ -1,6 +1,6 @@
 #{info, warn, fail} = require "ut1l/log"
 pow = Math.pow
-rgbM = require "./rgb"
+rgbM = require "./rgbFloat"
 xyzM = require "./XYZ"
 
 ###

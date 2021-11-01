@@ -114,5 +114,5 @@ describe "Rgb Colorspace module", ->
             max.a = Math.max labColor.a, max.a
             max.b = Math.max labColor.b, max.b
 
-      (expect min).toEqual C.Lab 0, -223.4241602806217, -237.05355418094157
+      (expect min).toEqual C.Lab 0, -223.4241602806217, -237.05355418094155
       (expect max).toEqual C.Lab 100, 191.62605068015958, 158.7312579450673
