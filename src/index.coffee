@@ -1,6 +1,6 @@
 module.exports = index =
-  rgb: require "./rgb"
-  RGB: require "./RGB"
+  rgb: require "./rgbFloat"
+  RGB: require "./RGBInt"
   hsv: require "./hsv"
   Lab: require "./Lab"
   LCh: require "./LCh"

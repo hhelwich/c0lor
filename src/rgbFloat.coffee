@@ -21,7 +21,7 @@ validRgbEl = (x) ->
 
 rgbPrototype =
 
-  RGB: (T = do require "./RGB") ->
+  RGB: (T = do require "./RGBInt") ->
     T.R = toByte @r
     T.G = toByte @g
     T.B = toByte @b

@@ -21,7 +21,7 @@ isValid = (n) ->
 
 rgb24Prototype =
 
-  rgb: (T = do require "./rgb") ->
+  rgb: (T = do require "./rgbFloat") ->
     T.r = fromByte @R
     T.g = fromByte @G
     T.b = fromByte @B
