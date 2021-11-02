@@ -87,7 +87,7 @@ rgbSpacePrototype =
   gammaInv: (x) ->
     pow(x, @gInv)
 
-  rgb: (XYZ, T = do require "../rgbFloat") ->
+  rgb: (XYZ, T = do require "../rgb") ->
     a = @baseInv
     T.r = @gammaInv a[0] * XYZ.X + a[1] * XYZ.Y + a[2] * XYZ.Z
     T.g = @gammaInv a[3] * XYZ.X + a[4] * XYZ.Y + a[5] * XYZ.Z

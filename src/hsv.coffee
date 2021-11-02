@@ -13,7 +13,7 @@ floor = Math.floor
 
 hsvPrototype =
 
-  rgb: (T = do require "./rgbFloat") ->
+  rgb: (T = do require "./rgb") ->
     if @s == 0 # simplification
       T.set @v, @v, @v
     else
@@ -42,7 +42,7 @@ hsvPrototype =
 
 hsv = createHsv = O ((@h, @s, @v) ->), hsvPrototype
 
-(require "./rgbFloat").extendRgb (rgb) ->
+(require "./rgb").extendRgb (rgb) ->
 
   rgb.hsv = (T = do createHsv) ->
     max = Math.max @r, @g, @b

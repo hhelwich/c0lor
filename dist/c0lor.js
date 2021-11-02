@@ -1,5 +1,5 @@
-// c0lor v0.1.0 | (c) 2013-2014 Hendrik Helwich | MIT License
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+// c0lor v0.1.1 | (c) 2013-2021 Hendrik Helwich | MIT License
+'use strict';(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var O, cos, lchPrototype, sin;
 
 O = require("ut1l/create/object");
@@ -29,7 +29,7 @@ module.exports = O((function(L, C, h) {
   this.h = h;
 }), lchPrototype);
 
-},{"./Lab":2,"ut1l/create/object":14}],2:[function(require,module,exports){
+},{"./Lab":2,"ut1l/create/object":16}],2:[function(require,module,exports){
 var O, atan2, labPrototype, sqrt;
 
 O = require("ut1l/create/object");
@@ -59,18 +59,10 @@ module.exports = O((function(L, a, b) {
   this.b = b;
 }), labPrototype);
 
-},{"./LCh":1,"ut1l/create/object":14}],3:[function(require,module,exports){
-var O, cutByte, from2Hex, fromByte, rgb24Prototype, to2Hex;
+},{"./LCh":1,"ut1l/create/object":16}],3:[function(require,module,exports){
+var O, from2Hex, fromByte, isValid, rgb24Prototype, to2Hex;
 
 O = require("ut1l/create/object");
-
-cutByte = function(b) {
-  if ((0 <= b && b <= 255)) {
-    return b;
-  } else {
-    return void 0;
-  }
-};
 
 fromByte = function(b) {
   if (b === void 0) {
@@ -92,6 +84,10 @@ to2Hex = function(b) {
 
 from2Hex = function(str) {
   return parseInt(str, 16);
+};
+
+isValid = function(n) {
+  return (0 <= n && n <= 255) && n % 1 === 0;
 };
 
 rgb24Prototype = {
@@ -121,6 +117,9 @@ rgb24Prototype = {
   isDefined: function() {
     return (this.R != null) && (this.G != null) && (this.B != null);
   },
+  isValid: function() {
+    return this.isDefined() && (isValid(this.R)) && (isValid(this.G)) && (isValid(this.B));
+  },
   toString: function() {
     return "R=" + this.R + ", G=" + this.G + ", B=" + this.B;
   }
@@ -132,7 +131,7 @@ module.exports = O((function(R, G, B) {
   this.B = B;
 }), rgb24Prototype);
 
-},{"./rgb":7,"ut1l/create/object":14}],4:[function(require,module,exports){
+},{"./rgb":7,"ut1l/create/object":16}],4:[function(require,module,exports){
 var O, xyzPrototype;
 
 O = require("ut1l/create/object");
@@ -161,7 +160,7 @@ module.exports = O((function(X, Y, Z) {
   this.Z = Z;
 }), xyzPrototype);
 
-},{"./xyY":11,"ut1l/create/object":14}],5:[function(require,module,exports){
+},{"./xyY":11,"ut1l/create/object":16}],5:[function(require,module,exports){
 var O, createHsv, floor, hsv, hsvPrototype;
 
 O = require("ut1l/create/object");
@@ -198,8 +197,8 @@ hsvPrototype = {
       }
     }
   },
-  set: function(h, s, v) {
-    this.h = h;
+  set: function(h1, s, v) {
+    this.h = h1;
     this.s = s;
     this.v = v;
     return this;
@@ -209,8 +208,8 @@ hsvPrototype = {
   }
 };
 
-hsv = createHsv = O((function(h, s, v) {
-  this.h = h;
+hsv = createHsv = O((function(h1, s, v) {
+  this.h = h1;
   this.s = s;
   this.v = v;
 }), hsvPrototype);
@@ -248,12 +247,12 @@ hsv = createHsv = O((function(h, s, v) {
 
 module.exports = hsv;
 
-},{"./rgb":7,"ut1l/create/object":14}],6:[function(require,module,exports){
+},{"./rgb":7,"ut1l/create/object":16}],6:[function(require,module,exports){
 var index;
 
 module.exports = index = {
   rgb: require("./rgb"),
-  RGB: require("./RGB"),
+  RGB: require("./RGBInt"),
   hsv: require("./hsv"),
   Lab: require("./Lab"),
   LCh: require("./LCh"),
@@ -270,23 +269,17 @@ if (typeof window !== "undefined" && window !== null) {
   window.c0lor = index;
 }
 
-},{"./LCh":1,"./Lab":2,"./RGB":3,"./XYZ":4,"./hsv":5,"./rgb":7,"./space/lab":8,"./space/rgb":9,"./white":10,"./xyY":11}],7:[function(require,module,exports){
-var O, cutByte, rgbPrototype, round, toByte, validRgbEl;
+},{"./LCh":1,"./Lab":2,"./RGBInt":3,"./XYZ":4,"./hsv":5,"./rgb":7,"./space/lab":8,"./space/rgb":9,"./white":10,"./xyY":11}],7:[function(require,module,exports){
+var O, rgbPrototype, round, toByte, validRgbEl;
 
 O = require("ut1l/create/object");
 
 round = Math.round;
 
-cutByte = function(b) {
-  if ((0 <= b && b <= 255)) {
-    return b;
-  } else {
-    return void 0;
-  }
-};
-
 toByte = function(d) {
-  return cutByte(round(d * 255));
+  if (d != null) {
+    return round(d * 255);
+  }
 };
 
 validRgbEl = function(x) {
@@ -296,7 +289,7 @@ validRgbEl = function(x) {
 rgbPrototype = {
   RGB: function(T) {
     if (T == null) {
-      T = require("./RGB")();
+      T = require("./RGBInt")();
     }
     T.R = toByte(this.r);
     T.G = toByte(this.g);
@@ -330,7 +323,7 @@ module.exports = O({
   this.b = b;
 }), rgbPrototype);
 
-},{"./RGB":3,"ut1l/create/object":14}],8:[function(require,module,exports){
+},{"./RGBInt":3,"ut1l/create/object":16}],8:[function(require,module,exports){
 var Lab, N, O, e, e3, f, fDeriv, fInv, foo, labCsPrototype, pow, xyz;
 
 O = require("ut1l/create/object");
@@ -405,7 +398,7 @@ module.exports = O((function(white) {
   this.white = white;
 }), labCsPrototype);
 
-},{"../Lab":2,"../XYZ":4,"ut1l/create/object":14}],9:[function(require,module,exports){
+},{"../Lab":2,"../XYZ":4,"ut1l/create/object":16}],9:[function(require,module,exports){
 var M, O, XYZ, createSpace, gammaSRgb, gammaSRgbInv, lazyInitRgbBase, lu, pow, rgbSpaceConstructor, rgbSpacePrototype, white, xyY;
 
 O = require("ut1l/create/object");
@@ -451,11 +444,11 @@ lazyInitRgbBase = function() {
   delete this.rgb;
 };
 
-rgbSpaceConstructor = function(red, green, blue, white, gamma, gammaInv) {
+rgbSpaceConstructor = function(red, green, blue, white1, gamma, gammaInv) {
   this.red = red;
   this.green = green;
   this.blue = blue;
-  this.white = white;
+  this.white = white1;
   if (typeof gamma === "function") {
     this.gamma = gamma;
     this.gammaInv = gammaInv;
@@ -535,7 +528,7 @@ createSpace["WideGamut"] = createSpace(xyY(0.7347, 0.2653), xyY(0.1152, 0.8264),
 
 module.exports = createSpace;
 
-},{"../XYZ":4,"../rgb":7,"../white":10,"../xyY":11,"m4th/lu":12,"m4th/matrix":13,"ut1l/create/object":14}],10:[function(require,module,exports){
+},{"../XYZ":4,"../rgb":7,"../white":10,"../xyY":11,"m4th/lu":12,"m4th/matrix":13,"ut1l/create/object":16}],10:[function(require,module,exports){
 var xy, xyY;
 
 xyY = require("./xyY");
@@ -596,7 +589,7 @@ module.exports = O((function(x, y, Y) {
   this.Y = Y;
 }), xyyPrototype);
 
-},{"./XYZ":4,"ut1l/create/object":14}],12:[function(require,module,exports){
+},{"./XYZ":4,"ut1l/create/object":16}],12:[function(require,module,exports){
 var M, T, creator, fail, luDecompConstructor, luDecompPrototype;
 
 M = require("./matrix");
@@ -1059,4 +1052,54 @@ createCreateThrowable.c4tch = function() {
 
 module.exports = createCreateThrowable;
 
-},{"./object":14}]},{},[6])
+},{"./object":14}],16:[function(require,module,exports){
+var addProto, createBuilder, defineProperty;
+
+defineProperty = Object.defineProperty;
+
+addProto = defineProperty !== void 0 ? function(func, proto) {
+  func.prototype = proto;
+  defineProperty(func, "prototype", {
+    enumerable: false
+  });
+} : function(func, proto) {
+  func.prototype = proto;
+};
+
+createBuilder = function(extend, constructor, prototype) {
+  var F, f, key, value;
+  if (typeof extend === "function") {
+    prototype = constructor;
+    constructor = extend;
+    extend = null;
+  } else if ((constructor == null) && (prototype == null)) {
+    prototype = extend;
+    extend = null;
+  }
+  F = constructor != null ? function(args) {
+    var ret;
+    ret = constructor.apply(this, args);
+    if (ret !== void 0) {
+      return ret;
+    } else {
+      return this;
+    }
+  } : function() {};
+  if (prototype == null) {
+    prototype = {};
+  }
+  F.prototype = prototype;
+  f = function() {
+    return new F(arguments);
+  };
+  addProto(f, prototype);
+  for (key in extend) {
+    value = extend[key];
+    f[key] = value;
+  }
+  return f;
+};
+
+module.exports = createBuilder;
+
+},{}]},{},[6]);
